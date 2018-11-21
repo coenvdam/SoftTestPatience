@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftTestPatience", "SoftTestPatience\SoftTestPatience.csproj", "{9AF72B0F-4F2E-468C-810A-D029A81B2D91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftTestPatience.Tests", "SoftTestPatience.Tests\SoftTestPatience.Tests.csproj", "{F2BAC5AD-875B-4291-B82A-55C686FAE985}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9AF72B0F-4F2E-468C-810A-D029A81B2D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AF72B0F-4F2E-468C-810A-D029A81B2D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AF72B0F-4F2E-468C-810A-D029A81B2D91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2BAC5AD-875B-4291-B82A-55C686FAE985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2BAC5AD-875B-4291-B82A-55C686FAE985}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2BAC5AD-875B-4291-B82A-55C686FAE985}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2BAC5AD-875B-4291-B82A-55C686FAE985}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
