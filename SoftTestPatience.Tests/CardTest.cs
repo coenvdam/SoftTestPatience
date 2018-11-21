@@ -10,5 +10,107 @@ namespace SoftTestPatience.Tests
         {
             this._card = new Card();
         }
+
+        [Fact]
+        public void ToString_UnhiddenAceOfHearts_ShouldReturnAceOfHearts()
+        {
+            //Arrange
+            _card.Value = 0;
+            _card.Suit = Suits.Hearts;
+            _card.Hidden = false;
+
+            var expected = "ace of hearts";
+
+            //Act
+            var actual = _card.ToString();
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ToString_UnhiddenJackOfSpades_ShouldReturnJackOfSpades()
+        {
+            //Arrange
+            _card.Value = 11;
+            _card.Suit = Suits.Spades;
+            _card.Hidden = false;
+
+            var expected = "jack of spades";
+
+            //Act
+            var actual = _card.ToString();
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ToString_UnhiddenQueenOfClubs_ShouldReturnQueenOfClubs()
+        {
+            //Arrange
+            _card.Value = 12;
+            _card.Suit = Suits.Clubs;
+            _card.Hidden = false;
+
+            var expected = "queen of clubs";
+
+            //Act
+            var actual = _card.ToString();
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ToString_UnhiddenKingOfDiamonds_ShouldReturnKingOfDiamonds()
+        {
+            //Arrange
+            _card.Value = 13;
+            _card.Suit = Suits.Diamonds;
+            _card.Hidden = false;
+
+            var expected = "king of diamonds";
+
+            //Act
+            var actual = _card.ToString();
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ToString_UnhiddenTenOfDiamonds_ShouldReturnTenOfDiamonds()
+        {
+            //Arrange
+            _card.Value = 10;
+            _card.Suit = Suits.Diamonds;
+            _card.Hidden = false;
+
+            var expected = "10 of diamonds";
+
+            //Act
+            var actual = _card.ToString();
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void ToString_HiddenTenOfDiamonds_ShouldReturnHiddenCard()
+        {
+            //Arrange
+            _card.Value = 13;
+            _card.Suit = Suits.Diamonds;
+            _card.Hidden = false;
+
+            var expected = "hidden card";
+
+            //Act
+            var actual = _card.ToString();
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
     }
 }
