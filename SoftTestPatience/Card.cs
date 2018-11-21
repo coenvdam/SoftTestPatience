@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("SoftTestPatience.Tests")]
 namespace SoftTestPatience
 {
-    class Card
+    internal class Card
     {
-        public int value;
-        public Suits suit;
-        public bool hidden;
+        public int Value;
+        public Suits Suit;
+        public bool Hidden;
 
         public override string ToString()
         {

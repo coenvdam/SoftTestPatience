@@ -1,6 +1,9 @@
-﻿namespace SoftTestPatience
+﻿using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("SoftTestPatience.Tests")]
+namespace SoftTestPatience
 {
-    internal enum Suits
+    enum Suits
     {
         Hearts = 0,
         Diamonds = 1,
