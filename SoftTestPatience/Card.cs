@@ -12,7 +12,53 @@ namespace SoftTestPatience
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            if (Hidden)
+            {
+                return "???";
+            }
+
+            var toString = "";
+            if (this.Value != 10)
+            {
+                toString += " ";
+            }
+
+            switch (this.Value)
+            {
+                case 1:
+                    toString += "A";
+                    break;
+                case 11:
+                    toString += "J";
+                    break;
+                case 12:
+                    toString += "Q";
+                    break;
+                case 13:
+                    toString += "K";
+                    break;
+                default:
+                    toString += Value.ToString();
+                    break;
+            }
+
+            switch (this.Suit)
+            {
+                case Suits.Clubs:
+                    toString += "\u2663";
+                    break;
+                case Suits.Diamonds:
+                    toString += "\u2666";
+                    break;
+                case Suits.Hearts:
+                    toString += "\u2665";
+                    break;
+                case Suits.Spades:
+                    toString += "\u2660";
+                    break;
+            }
+
+            return toString;
         }
     }
 }
