@@ -15,7 +15,7 @@ namespace SoftTestPatience.Tests
         public void ToString_UnhiddenAceOfHearts_ShouldReturnAceOfHearts()
         {
             //Arrange
-            _card.Value = 0;
+            _card.Value = 1;
             _card.Suit = Suits.Hearts;
             _card.Hidden = false;
 
@@ -102,7 +102,7 @@ namespace SoftTestPatience.Tests
             //Arrange
             _card.Value = 13;
             _card.Suit = Suits.Diamonds;
-            _card.Hidden = false;
+            _card.Hidden = true;
 
             var expected = "???";
 
