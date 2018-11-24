@@ -14,7 +14,7 @@ namespace SoftTestPatience.Tests
         public void GetStackSize_ListOfRandomCards_ShouldReturnSizeOfInputList()
         {
             // Arrange
-            var cards = CreateRandomListOfCards();
+            var cards = CreateRandomListOfMockCards();
             var expectedSize = cards.Count;
             var sut = new MockCardStack(cards);
 
@@ -40,7 +40,7 @@ namespace SoftTestPatience.Tests
         public void GetLastCard_ListOfRandomCards_ShouldReturnLastCardInList()
         {
             // Arrange 
-            var cards = CreateRandomListOfCards();
+            var cards = CreateRandomListOfMockCards();
             var sut = new MockCardStack(cards);
             var expectedCard = cards[cards.Count - 1];
 
@@ -84,14 +84,19 @@ namespace SoftTestPatience.Tests
             Assert.Equal(expectedMessage, actualMessage);
         }
 
-        private List<Card> CreateRandomListOfCards()
+        private List<Card> CreateRandomListOfMockCards()
         {
             List<Card> mockCards = new List<Card>();
             Random rnd = new Random();
             int nrOfCards = rnd.Next(1, 15);
 
-            for (int i = 0; i < nrOfCards; i++) {
-                mockCards.Add(new Card() { Value = rnd.Next(1,15), Hidden = rnd.Next(0, 2) == 1 ? true : false, Suit = Suits.Clubs });
+            for(int i = 0; i < nrOfCards; i++)
+            {
+                Mock<Card> mc = new Mock<Card>();
+                mc.Object.Value = rnd.Next(1, 15);
+                mc.Object.Hidden = rnd.Next(0, 2) == 1 ? true : false;
+                mc.Object.Suit = Suits.Clubs;
+                mockCards.Add(mc.Object);
             }
 
             return mockCards;
