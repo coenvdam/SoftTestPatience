@@ -50,7 +50,6 @@ namespace SoftTestPatience.Tests
 
             // Assert
             Assert.Equal<Card>(expectedCard, actualCard);
-            
         }
 
         private List<Card> CreateRandomListOfCards()
