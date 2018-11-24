@@ -52,6 +52,22 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
+        public void GetLastCard_ListOfRandomCards_ShouldReturnOriginalListSizeMinus1()
+        {
+            // Arrange
+            var cards = CreateRandomListOfMockCards();
+            var sut = new MockCardStack(cards);
+            var expectedNrOfCards = cards.Count - 1;
+
+            // Act
+            Card card = sut.GetLastCard();
+            var actualNrOfCards = sut.GetStackSize();
+
+            // Assert
+            Assert.Equal(expectedNrOfCards, actualNrOfCards);
+        }
+
+        [Fact]
         public void Print_EmptyList_ShouldPrintPlaceHolderForCard()
         {
             // Arrange
