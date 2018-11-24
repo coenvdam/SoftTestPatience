@@ -15,7 +15,12 @@ namespace SoftTestPatience
 
         public virtual Card GetLastCard()
         {
-            throw new NotImplementedException();
+            if(cards.Count < 1)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return new Card();
         }
 
         public virtual int GetStackSize()
