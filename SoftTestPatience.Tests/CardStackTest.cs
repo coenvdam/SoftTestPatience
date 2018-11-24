@@ -44,7 +44,7 @@ namespace SoftTestPatience.Tests
             int nrOfCards = rnd.Next(1, 15);
 
             for (int i = 0; i < nrOfCards; i++) {
-                mockCards.Add(new Card());
+                mockCards.Add(new Card() { Value = rnd.Next(1,15), Hidden = rnd.Next(0, 2) == 1 ? true : false, Suit = Suits.Clubs });
             }
 
             return mockCards;
