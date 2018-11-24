@@ -26,6 +26,8 @@ namespace SoftTestPatience.Tests
             Assert.Equal(expectedSize, actualSize);
         }
 
+        [Fact]
+
         private List<Card> CreateRandomListOfCards()
         {
             List<Card> mockCards = new List<Card>();
