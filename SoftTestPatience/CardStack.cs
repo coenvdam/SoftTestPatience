@@ -19,7 +19,6 @@ namespace SoftTestPatience
             {
                 throw new InvalidOperationException();
             }
-
             return new Card();
         }
 
