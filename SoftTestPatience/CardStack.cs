@@ -29,7 +29,11 @@ namespace SoftTestPatience
 
         public virtual string Print()
         {
-            throw new NotImplementedException();
+            if (cards.Count == 0)
+            {
+                return "--";
+            }
+            return "";
         }
     }
 }
