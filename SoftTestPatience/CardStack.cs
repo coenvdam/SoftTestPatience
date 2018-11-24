@@ -13,7 +13,7 @@ namespace SoftTestPatience
             throw new NotImplementedException();
         }
 
-        public virtual Card GetCard()
+        public virtual Card GetLastCard()
         {
             throw new NotImplementedException();
         }
@@ -23,7 +23,7 @@ namespace SoftTestPatience
             throw new NotImplementedException();
         }
 
-        public virtual string ToString()
+        public virtual string Print()
         {
             throw new NotImplementedException();
         }
