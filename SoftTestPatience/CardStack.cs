@@ -11,6 +11,11 @@ namespace SoftTestPatience
 
         protected CardStack(List<Card> cards)
         {
+            if(cards.Count == 0)
+            {
+                throw new InvalidOperationException();
+            }
+
             this.cards = cards;
         }
 
@@ -20,6 +25,7 @@ namespace SoftTestPatience
             {
                 throw new InvalidOperationException();
             }
+
             Card lastCard = cards[cards.Count - 1];
             cards.RemoveAt(cards.Count - 1);
             return lastCard;
