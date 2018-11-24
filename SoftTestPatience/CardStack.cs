@@ -19,7 +19,7 @@ namespace SoftTestPatience
             {
                 throw new InvalidOperationException();
             }
-            return new Card();
+            return cards[cards.Count - 1];
         }
 
         public virtual int GetStackSize()
