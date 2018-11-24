@@ -57,9 +57,7 @@ namespace SoftTestPatience.Tests
         {
             // Arrange
             var cards = new List<Card>();
-            var mock = new Mock<CardStack>();
-            mock.CallBase = true;
-            var sut = mock.Object;
+            var sut = new MockCardStack(cards);
             var ExpectedMessage = "--";
 
             // Act
