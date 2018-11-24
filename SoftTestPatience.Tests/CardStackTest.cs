@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Moq;
 using Xunit;
 
@@ -58,13 +57,31 @@ namespace SoftTestPatience.Tests
             // Arrange
             var cards = new List<Card>();
             var sut = new MockCardStack(cards);
-            var ExpectedMessage = "--";
+            var expectedMessage = "---";
 
             // Act
             var actualMessage = sut.Print();
 
             // Assert
-            Assert.Equal(ExpectedMessage, actualMessage);
+            Assert.Equal(expectedMessage, actualMessage);
+        }
+
+        [Fact]
+        public void Print_ListOfRandomCards_ShouldPrintLastCard()
+        {
+            // Arrange
+            var mockCard = new Mock<Card>();
+            mockCard.Setup(mc => mc.ToString()).Returns(" A\u2665");
+            List<Card> cards = new List<Card>();
+            cards.Add(mockCard.Object);
+            var sut = new MockCardStack(cards);
+            var expectedMessage = " A\u2665";
+
+            // Act
+            var actualMessage = sut.Print();
+
+            // Assert
+            Assert.Equal(expectedMessage, actualMessage);
         }
 
         private List<Card> CreateRandomListOfCards()

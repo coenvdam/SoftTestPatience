@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace SoftTestPatience
 {
     abstract class CardStack
@@ -31,9 +32,10 @@ namespace SoftTestPatience
         {
             if (cards.Count == 0)
             {
-                return "--";
+                return "---";
             }
-            return "";
+
+            return cards[cards.Count - 1].ToString();
         }
     }
 }
