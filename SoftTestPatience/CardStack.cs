@@ -30,14 +30,14 @@ namespace SoftTestPatience
             return cards.Count;
         }
 
-        public virtual string Print()
+        public virtual void Print()
         {
             if (cards.Count == 0)
             {
-                return "---";
+                Console.Write("---");
             }
 
-            return cards[cards.Count - 1].ToString();
+            Console.Write(cards[cards.Count - 1].ToString());
         }
     }
 }
