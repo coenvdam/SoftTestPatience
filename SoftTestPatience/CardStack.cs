@@ -34,7 +34,6 @@ namespace SoftTestPatience
             {
                 return "---";
             }
-
             return cards[cards.Count - 1].ToString();
         }
     }
