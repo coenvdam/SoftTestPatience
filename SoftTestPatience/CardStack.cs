@@ -10,7 +10,7 @@ namespace SoftTestPatience
 
         protected CardStack(List<Card> cards)
         {
-            throw new NotImplementedException();
+            this.cards = cards;
         }
 
         public virtual Card GetLastCard()
@@ -20,7 +20,7 @@ namespace SoftTestPatience
 
         public virtual int GetStackSize()
         {
-            throw new NotImplementedException();
+            return cards.Count;
         }
 
         public virtual string Print()
