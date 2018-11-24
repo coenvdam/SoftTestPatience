@@ -8,6 +8,7 @@ namespace SoftTestPatience.Tests
 {
     public class CardStackTest
     {
+        private class MockCardStack : CardStack { public MockCardStack(List<Card> cards) : base(cards) { } }
         public CardStackTest() { }
 
         [Fact]
@@ -16,7 +17,7 @@ namespace SoftTestPatience.Tests
             // Arrange
             var cards = CreateRandomListOfCards();
             var expectedSize = cards.Count;
-            var sut = new Mock<CardStack>(cards).Object;
+            var sut = new MockCardStack(cards);
 
             // Act
             var actualSize = sut.GetStackSize();
@@ -25,14 +26,14 @@ namespace SoftTestPatience.Tests
             Assert.Equal(expectedSize, actualSize);
         }
 
-        private List<Mock<Card>> CreateRandomListOfCards()
+        private List<Card> CreateRandomListOfCards()
         {
-            List<Mock<Card>> mockCards = new List<Mock<Card>>();
+            List<Card> mockCards = new List<Card>();
             Random rnd = new Random();
             int nrOfCards = rnd.Next(1, 15);
 
             for (int i = 0; i < nrOfCards; i++) {
-                mockCards.Add(new Mock<Card>());
+                mockCards.Add(new Card());
             }
 
             return mockCards;
