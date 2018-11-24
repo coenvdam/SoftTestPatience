@@ -15,6 +15,16 @@ namespace SoftTestPatience.Tests
         public CardStackTest() { }
 
         [Fact]
+        public void CardStack_EmptyList_ShouldReturnInvalidOperationException()
+        {
+            // Arrange
+            var cards = new List<Card>();
+
+            // Act & Assert
+            Assert.Throws<InvalidOperationException>(() => new MockCardStack(cards));
+        }
+
+        [Fact]
         public void GetStackSize_ListOfRandomCards_ShouldReturnSizeOfInputList()
         {
             // Arrange
