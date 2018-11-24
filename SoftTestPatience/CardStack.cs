@@ -27,7 +27,7 @@ namespace SoftTestPatience
             return cards.Count;
         }
 
-        public virtual void Print()
+        public virtual string Print()
         {
             throw new NotImplementedException();
         }

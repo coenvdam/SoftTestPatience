@@ -52,6 +52,23 @@ namespace SoftTestPatience.Tests
             Assert.Equal<Card>(expectedCard, actualCard);
         }
 
+        [Fact]
+        public void Print_EmptyList_ShouldPrintPlaceHolderForCard()
+        {
+            // Arrange
+            var cards = new List<Card>();
+            var mock = new Mock<CardStack>();
+            mock.CallBase = true;
+            var sut = mock.Object;
+            var ExpectedMessage = "--";
+
+            // Act
+            var actualMessage = sut.Print();
+
+            // Assert
+            Assert.Equal(ExpectedMessage, actualMessage);
+        }
+
         private List<Card> CreateRandomListOfCards()
         {
             List<Card> mockCards = new List<Card>();
