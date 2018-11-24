@@ -37,6 +37,22 @@ namespace SoftTestPatience.Tests
             Assert.Throws<InvalidOperationException>(() => sut.GetLastCard());
         }
 
+        [Fact]
+        public void GetLastCard_ListOfRandomCards_ShouldReturnLastCardInList()
+        {
+            // Arrange 
+            var cards = CreateRandomListOfCards();
+            var sut = new MockCardStack(cards);
+            var expectedCard = cards[cards.Count - 1];
+
+            // Act
+            var actualCard = sut.GetLastCard();
+
+            // Assert
+            Assert.Equal<Card>(expectedCard, actualCard);
+            
+        }
+
         private List<Card> CreateRandomListOfCards()
         {
             List<Card> mockCards = new List<Card>();
