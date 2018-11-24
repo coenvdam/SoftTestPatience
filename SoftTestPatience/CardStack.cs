@@ -14,9 +14,9 @@ namespace SoftTestPatience
             this.cards = cards;
         }
 
-        public virtual Card GetLastCard()
+        public virtual Card GetAndRemoveLastCard()
         {
-            if(cards.Count < 1)
+            if(cards.Count == 0)
             {
                 throw new InvalidOperationException();
             }
@@ -30,14 +30,6 @@ namespace SoftTestPatience
             return cards.Count;
         }
 
-        public virtual void Print()
-        {
-            if (cards.Count == 0)
-            {
-                Console.Write("---");
-            }
-
-            Console.Write(cards[cards.Count - 1].ToString());
-        }
+        public abstract override string ToString();
     }
 }
