@@ -18,7 +18,7 @@ namespace SoftTestPatience
 
         public void NewGame()
         {
-            throw new NotImplementedException();
+            Console.Write("Welcome to Patience!\nType a move like \'5 7 3\' where 5 is the stack to move cards from to stack number 7, and 3 the amount of cards\n");
         }
 
         public string ManageUserInput()
