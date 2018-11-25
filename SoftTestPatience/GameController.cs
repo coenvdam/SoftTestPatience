@@ -21,7 +21,7 @@ namespace SoftTestPatience
             throw new NotImplementedException();
         }
 
-        public string GetUserInput()
+        public string ManageUserInput()
         {
             Console.Write("(type 'new' for newgame or 'exit' to quit game) Enter a new move: ");
             return "";

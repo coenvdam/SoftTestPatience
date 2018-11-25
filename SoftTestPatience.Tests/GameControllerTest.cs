@@ -12,7 +12,7 @@ namespace SoftTestPatience.Tests
         public GameControllerTest() { }
 
         [Fact]
-        public void GetUserInput_CheckIfCorrectMessageIsPrintedToConsoleForAskingUserInput()
+        public void ManageUserInput_CheckIfCorrectMessageIsPrintedToConsoleForAskingUserInput()
         {
             Mock<Board> mock = new Mock<Board>();
             GameController sut = new GameController(mock.Object);
@@ -20,7 +20,7 @@ namespace SoftTestPatience.Tests
             using (StringWriter sw = new StringWriter())
             {
                 Console.SetOut(sw);
-                sut.GetUserInput();
+                sut.ManageUserInput();
                 string expected = "(type 'new' for newgame or 'exit' to quit game) Enter a new move: ";
                 Assert.Equal(expected, sw.ToString());
             }
