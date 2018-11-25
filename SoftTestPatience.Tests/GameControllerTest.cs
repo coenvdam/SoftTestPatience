@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using Xunit;
 using Moq;
+using System.Text.RegularExpressions;
 
 namespace SoftTestPatience.Tests
 {
@@ -107,6 +108,7 @@ namespace SoftTestPatience.Tests
             Mock<Board> mock = new Mock<Board>();
             GameController sut = new GameController(mock.Object);
             string expected = "Exiting Game!";
+            Regex regex = new Regex(expected);
 
             using (StringWriter sw = new StringWriter())
             {
@@ -120,7 +122,8 @@ namespace SoftTestPatience.Tests
                     sut.RunGame();
 
                     // Assert
-                    Assert.Equal(expected, sw.ToString());     
+                    System.Text.RegularExpressions.Match match = regex.Match(sw.ToString());
+                    Assert.True(match.Success);
                 }
             }
         }
