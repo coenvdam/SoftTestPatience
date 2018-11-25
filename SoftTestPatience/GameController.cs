@@ -5,7 +5,7 @@ using System.Text;
 namespace SoftTestPatience
 {
     // Placeholder
-    public class Board { public void Reset() { } }
+    public class Board { public virtual void Reset() { } }
 
     class GameController
     {
@@ -19,6 +19,7 @@ namespace SoftTestPatience
         public void NewGame()
         {
             Console.Write("Welcome to Patience!\nType a move like \'5 7 3\' where 5 is the stack to move cards from to stack number 7, and 3 the amount of cards\n");
+            table.Reset();
         }
 
         public string ManageUserInput()
