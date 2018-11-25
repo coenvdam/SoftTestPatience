@@ -23,7 +23,7 @@ namespace SoftTestPatience
 
         public string ManageUserInput()
         {
-            Console.Write("(type 'new' for newgame or 'exit' to quit game) Enter a new move: ");
+            Console.Write("(type 'new' for newgame or 'exit' to quit game) Enter a new move:\n");
             string input = Console.ReadLine();
             return input;
         }
