@@ -5,7 +5,7 @@ using System.Text;
 namespace SoftTestPatience
 {
     // Placeholder
-    public class Board { }
+    public class Board { public void Reset() { } }
 
     class GameController
     {

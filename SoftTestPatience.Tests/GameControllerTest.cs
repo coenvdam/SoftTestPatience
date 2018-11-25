@@ -80,5 +80,19 @@ namespace SoftTestPatience.Tests
                 Assert.Equal(expected, sw.ToString());
             }
         }
+
+        [Fact] 
+        public void NewGame_MockBoard_ShouldCallResetMethodOnBoardOnce()
+        {
+            // Arrange
+            Mock<Board> mock = new Mock<Board>();
+            GameController sut = new GameController(mock.Object);
+
+            // Act
+            sut.NewGame();
+
+            // Assert
+            mock.Verify(m => m.Reset(), Times.Once());
+        }
     }
 }
