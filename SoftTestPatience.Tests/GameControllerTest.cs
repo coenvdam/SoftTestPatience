@@ -69,16 +69,23 @@ namespace SoftTestPatience.Tests
             Mock<Board> mock = new Mock<Board>();
             GameController sut = new GameController(mock.Object);
             string expected = "Welcome to Patience!\nType a move like \'5 7 3\' where 5 is the stack to move cards from to stack number 7, and 3 the amount of cards\n";
+            Regex regex = new Regex(expected);
 
             using (StringWriter sw = new StringWriter())
             {
                 Console.SetOut(sw);
 
-                // Act
-                sut.NewGame();
+                using (StringReader sr = new StringReader("exit"))
+                {
+                    Console.SetIn(sr);
 
-                // Assert
-                Assert.Equal(expected, sw.ToString());
+                    // Act
+                    sut.NewGame();
+
+                    // Assert
+                    System.Text.RegularExpressions.Match match = regex.Match(sw.ToString());
+                    Assert.True(match.Success);
+                }
             }
         }
 
@@ -93,11 +100,16 @@ namespace SoftTestPatience.Tests
             {
                 Console.SetOut(sw);
 
-                // Act
-                sut.NewGame();
+                using (StringReader sr = new StringReader("exit"))
+                {
+                    Console.SetIn(sr);
 
-                // Assert
-                mock.Verify(m => m.Reset(), Times.Once());
+                    // Act
+                    sut.NewGame();
+
+                    // Assert
+                    mock.Verify(m => m.Reset(), Times.Once());
+                }
             }
         }
 
