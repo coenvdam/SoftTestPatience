@@ -12,7 +12,7 @@ namespace SoftTestPatience.Tests
         public GameControllerTest() { }
 
         [Fact]
-        public void ManageUserInput_CheckIfCorrectMessageIsPrintedToConsoleForAskingUserInput()
+        public void ManageUserInput_NoInput_CheckIfCorrectMessageIsPrintedToConsoleForAskingUserInput()
         {
             // Arrange
             Mock<Board> mock = new Mock<Board>();
@@ -58,6 +58,26 @@ namespace SoftTestPatience.Tests
                     // Assert
                     Assert.Equal(expected, actual);
                 }
+            }
+        }
+
+        [Fact] 
+        public void NewGame_NoInput_ShouldPrintCorrectWelcomeMessage()
+        {
+            // Arrange
+            Mock<Board> mock = new Mock<Board>();
+            GameController sut = new GameController(mock.Object);
+            string expected = "Welcome to Patience!\nType a move like \'5 7 3\' where 5 is the stack to move cards from to stack number 7, and 3 the amount of cards\n";
+
+            using (StringWriter sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+
+                // Act
+                sut.NewGame();
+
+                // Assert
+                Assert.Equal(expected, sw.ToString());
             }
         }
     }
