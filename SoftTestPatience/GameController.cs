@@ -13,7 +13,7 @@ namespace SoftTestPatience
 
         public GameController(Board table)
         {
-            throw new NotImplementedException();
+            this.table = table;
         }
 
         public void NewGame()
@@ -23,7 +23,8 @@ namespace SoftTestPatience
 
         public string GetUserInput()
         {
-            throw new NotImplementedException();
+            Console.Write("(type 'new' for newgame or 'exit' to quit game) Enter a new move: ");
+            return "";
         }
 
         public void RunGame()

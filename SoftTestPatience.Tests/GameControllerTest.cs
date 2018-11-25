@@ -21,7 +21,7 @@ namespace SoftTestPatience.Tests
             {
                 Console.SetOut(sw);
                 sut.GetUserInput();
-                string expected = "Enter a new move: ";
+                string expected = "(type 'new' for newgame or 'exit' to quit game) Enter a new move: ";
                 Assert.Equal(expected, sw.ToString());
             }
         }
