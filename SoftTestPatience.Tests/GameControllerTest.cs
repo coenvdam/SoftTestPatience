@@ -99,5 +99,30 @@ namespace SoftTestPatience.Tests
                 mock.Verify(m => m.Reset(), Times.Once());
             }
         }
+
+        [Fact]
+        public void RunGame_Exit_ShouldCallUserInputAndExit()
+        {
+            // Arrange
+            Mock<Board> mock = new Mock<Board>();
+            GameController sut = new GameController(mock.Object);
+            string expected = "Exiting Game!";
+
+            using (StringWriter sw = new StringWriter())
+            {
+                Console.SetOut(sw);
+
+                using (StringReader sr = new StringReader("exit"))
+                {
+                    Console.SetIn(sr);
+
+                    // Act
+                    sut.RunGame();
+
+                    // Assert
+                    Assert.Equal(expected, sw.ToString());     
+                }
+            }
+        }
     }
 }
