@@ -31,7 +31,13 @@ namespace SoftTestPatience
 
         public void RunGame()
         {
-            throw new NotImplementedException();
+            string input;
+
+            do
+            {
+                input = ManageUserInput();
+            } while (input != "exit");
+            Console.WriteLine("Exiting Game!");
         }
     }
 }
