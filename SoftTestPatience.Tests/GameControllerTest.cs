@@ -88,11 +88,16 @@ namespace SoftTestPatience.Tests
             Mock<Board> mock = new Mock<Board>();
             GameController sut = new GameController(mock.Object);
 
-            // Act
-            sut.NewGame();
+            using (StringWriter sw = new StringWriter())
+            {
+                Console.SetOut(sw);
 
-            // Assert
-            mock.Verify(m => m.Reset(), Times.Once());
+                // Act
+                sut.NewGame();
+
+                // Assert
+                mock.Verify(m => m.Reset(), Times.Once());
+            }
         }
     }
 }
