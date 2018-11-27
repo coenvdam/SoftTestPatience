@@ -4,7 +4,11 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("SoftTestPatience.Tests")]
 namespace SoftTestPatience
 {
-    internal class Card
+    public interface ICard
+    {
+        string ToString();
+    }
+    internal class Card : ICard
     {
         //Should only be called in this class and by unit tests
         internal int Value;

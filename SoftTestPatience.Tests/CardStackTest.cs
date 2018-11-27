@@ -19,7 +19,7 @@ namespace SoftTestPatience.Tests
         public void TakeLastCard_EmptyList_ShouldThrowsInvalidOperationException()
         {
             // Arrange
-            var cards = new List<Card>();
+            var cards = new List<ICard>();
             _cardStackMock.Object.Cards = cards;
 
             // Act & Assert
@@ -31,7 +31,7 @@ namespace SoftTestPatience.Tests
         {
             // Arrange 
             var expectedCard = new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>());
-            var cards = new List<Card>()
+            var cards = new List<ICard>()
             {
                 new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>()),
                 new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>()),
@@ -51,7 +51,7 @@ namespace SoftTestPatience.Tests
         {
             // Arrange 
             var expectedCard = new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>());
-            var cards = new List<Card>()
+            var cards = new List<ICard>()
             {
                 expectedCard
             };
@@ -68,7 +68,7 @@ namespace SoftTestPatience.Tests
         public void TakeLastCard_ListOfNoCards_ShouldReturnInvalidOperationException()
         {
             // Arrange
-            var cards = new List<Card>();
+            var cards = new List<ICard>();
             _cardStackMock.Object.Cards = cards;
 
             // Act & Assert
@@ -80,7 +80,7 @@ namespace SoftTestPatience.Tests
         {
             // Arrange 
             var expectedAmount = 2;
-            var cards = new List<Card>()
+            var cards = new List<ICard>()
             {
                 new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>()),
                 new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>())

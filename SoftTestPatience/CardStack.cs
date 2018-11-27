@@ -5,24 +5,30 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace SoftTestPatience
 {
-    abstract class CardStack
+    public interface ICardStack
+    {
+        ICard TakeLastCard();
+        int GetStackSize();
+    }
+
+    abstract class CardStack : ICardStack
     {
         //Should only be called in this class and by unit tests
-        internal List<Card> Cards;
+        internal List<ICard> Cards;
 
-        protected CardStack(List<Card> cards)
+        protected CardStack(List<ICard> cards)
         {
             this.Cards = cards;
         }
 
-        public Card TakeLastCard()
+        public ICard TakeLastCard()
         {
             if(Cards.Count == 0)
             {
                 throw new InvalidOperationException();
             }
 
-            Card lastCard = Cards[Cards.Count - 1];
+            ICard lastCard = Cards[Cards.Count - 1];
             Cards.RemoveAt(Cards.Count - 1);
             return lastCard;
         }

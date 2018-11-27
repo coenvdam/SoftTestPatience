@@ -4,12 +4,6 @@ using System.Text;
 
 namespace SoftTestPatience
 {
-    // Placeholder
-    public interface IBoard
-    {
-        void Reset();
-    }
-
     class GameController
     {
         internal IBoard Board;
