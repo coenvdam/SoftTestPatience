@@ -12,7 +12,7 @@ namespace SoftTestPatience.Tests
         //BeforeEach
         public CardStackTest()
         {
-            this._cardStackMock = new Mock<CardStack>(new List<Card>());
+            this._cardStackMock = new Mock<CardStack>(It.IsAny<List<Card>>());
         }
 
         [Fact]
@@ -30,23 +30,11 @@ namespace SoftTestPatience.Tests
         public void TakeLastCard_ListOfThreeCards_ShouldReturnLastCardInList()
         {
             // Arrange 
-            var expectedCard = new Card()
-            {
-                Value = It.IsAny<int>(),
-                Suit = It.IsAny<Suits>()
-            };
+            var expectedCard = new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>());
             var cards = new List<Card>()
             {
-                new Card()
-                {
-                    Value = It.IsAny<int>(),
-                    Suit = It.IsAny<Suits>()
-                },
-                new Card()
-                {
-                    Value = It.IsAny<int>(),
-                    Suit = It.IsAny<Suits>()
-                },
+                new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>()),
+                new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>()),
                 expectedCard
             };
             _cardStackMock.Object.Cards = cards;
@@ -62,11 +50,7 @@ namespace SoftTestPatience.Tests
         public void TakeLastCard_ListOfOneCard_ShouldReturnOnlyCard()
         {
             // Arrange 
-            var expectedCard = new Card()
-            {
-                Value = It.IsAny<int>(),
-                Suit = It.IsAny<Suits>()
-            };
+            var expectedCard = new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>());
             var cards = new List<Card>()
             {
                 expectedCard
@@ -98,16 +82,8 @@ namespace SoftTestPatience.Tests
             var expectedAmount = 2;
             var cards = new List<Card>()
             {
-                new Card()
-                {
-                    Value = It.IsAny<int>(),
-                    Suit = It.IsAny<Suits>()
-                },
-                new Card()
-                {
-                    Value = It.IsAny<int>(),
-                    Suit = It.IsAny<Suits>()
-                }
+                new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>()),
+                new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>())
             };
             _cardStackMock.Object.Cards = cards;
 
