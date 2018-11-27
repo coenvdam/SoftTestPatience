@@ -6,9 +6,17 @@ namespace SoftTestPatience
 {
     internal class Card
     {
-        public int Value;
-        public Suits Suit;
-        public bool Hidden;
+        //Should only be called in this class and by unit tests
+        internal int Value;
+        internal Suits Suit;
+        internal bool Hidden;
+
+        public Card(int value, Suits suit, bool hidden)
+        {
+            this.Value = value;
+            this.Suit = suit;
+            this.Hidden = hidden;
+        }
 
         public override string ToString()
         {
