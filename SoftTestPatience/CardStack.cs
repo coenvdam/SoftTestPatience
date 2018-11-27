@@ -7,35 +7,29 @@ namespace SoftTestPatience
 {
     abstract class CardStack
     {
-        private List<Card> cards;
+        //Should only be called in this class and by unit tests
+        internal List<Card> Cards;
 
         protected CardStack(List<Card> cards)
         {
-            if(cards.Count == 0)
-            {
-                throw new InvalidOperationException();
-            }
-
-            this.cards = cards;
+            this.Cards = cards;
         }
 
-        public virtual Card GetAndRemoveLastCard()
+        public Card TakeLastCard()
         {
-            if(cards.Count == 0)
+            if(Cards.Count == 0)
             {
                 throw new InvalidOperationException();
             }
 
-            Card lastCard = cards[cards.Count - 1];
-            cards.RemoveAt(cards.Count - 1);
+            Card lastCard = Cards[Cards.Count - 1];
+            Cards.RemoveAt(Cards.Count - 1);
             return lastCard;
         }
 
-        public virtual int GetStackSize()
+        public int GetStackSize()
         {
-            return cards.Count;
+            return Cards.Count;
         }
-
-        public abstract override string ToString();
     }
 }
