@@ -1,23 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using Xunit;
+﻿using AutoFixture;
+using AutoFixture.AutoMoq;
 using Moq;
+using System;
+using System.IO;
 using System.Text.RegularExpressions;
+using Xunit;
 
 namespace SoftTestPatience.Tests
 {
     public class GameControllerTest
     {
-        public GameControllerTest() { }
+        private Fixture _fixture;
+        private GameController _gameController;
+        private Mock<IBoard> _boardMock;
+
+        //BeforeEach
+        public GameControllerTest()
+        {
+            _fixture = new Fixture();
+            _fixture.Customize(new AutoMoqCustomization());
+
+            _boardMock = _fixture.Freeze<Mock<IBoard>>();
+
+            _gameController = _fixture.Create<GameController>();
+        }
 
         [Fact]
         public void ManageUserInput_NoInput_CheckIfCorrectMessageIsPrintedToConsoleForAskingUserInput()
         {
             // Arrange
-            Mock<Board> mock = new Mock<Board>();
-            GameController sut = new GameController(mock.Object);
             string expected = "(type 'new' for newgame or 'exit' to quit game) Enter a new move:\n";
 
             using (StringWriter sw = new StringWriter())
@@ -29,7 +40,7 @@ namespace SoftTestPatience.Tests
                     Console.SetIn(sr);
 
                     // Act
-                    sut.ManageUserInput();
+                    _gameController.ManageUserInput();
 
                     // Assert
                     Assert.Equal(expected, sw.ToString());
@@ -41,8 +52,6 @@ namespace SoftTestPatience.Tests
         public void ManageUserInput_MoveStackOf3Cards_ShouldReturnMoveInStringFormat()
         {
             // Arrange
-            Mock<Board> mock = new Mock<Board>();
-            GameController sut = new GameController(mock.Object);
             string expected = "5 7 3";
 
             using (StringWriter sw = new StringWriter())
@@ -54,7 +63,7 @@ namespace SoftTestPatience.Tests
                     Console.SetIn(sr);
 
                     // Act
-                    string actual = sut.ManageUserInput();
+                    string actual = _gameController.ManageUserInput();
 
                     // Assert
                     Assert.Equal(expected, actual);
@@ -62,12 +71,10 @@ namespace SoftTestPatience.Tests
             }
         }
 
-        [Fact] 
+        [Fact]
         public void NewGame_NoInput_ShouldPrintCorrectWelcomeMessage()
         {
             // Arrange
-            Mock<Board> mock = new Mock<Board>();
-            GameController sut = new GameController(mock.Object);
             string expected = "Welcome to Patience!\nType a move like \'5 7 3\' where 5 is the stack to move cards from to stack number 7, and 3 the amount of cards\n";
             Regex regex = new Regex(expected);
 
@@ -80,7 +87,7 @@ namespace SoftTestPatience.Tests
                     Console.SetIn(sr);
 
                     // Act
-                    sut.NewGame();
+                    _gameController.NewGame();
 
                     // Assert
                     System.Text.RegularExpressions.Match match = regex.Match(sw.ToString());
@@ -89,36 +96,20 @@ namespace SoftTestPatience.Tests
             }
         }
 
-        [Fact] 
+        [Fact]
         public void NewGame_MockBoard_ShouldCallResetMethodOnBoardOnce()
         {
-            // Arrange
-            Mock<Board> mock = new Mock<Board>();
-            GameController sut = new GameController(mock.Object);
+            // Act
+            _gameController.NewGame();
 
-            using (StringWriter sw = new StringWriter())
-            {
-                Console.SetOut(sw);
-
-                using (StringReader sr = new StringReader("exit"))
-                {
-                    Console.SetIn(sr);
-
-                    // Act
-                    sut.NewGame();
-
-                    // Assert
-                    mock.Verify(m => m.Reset(), Times.Once());
-                }
-            }
+            // Assert
+            _boardMock.Verify(m => m.Reset(), Times.Once());
         }
 
         [Fact]
         public void RunGame_Exit_ShouldCallUserInputAndExit()
         {
             // Arrange
-            Mock<Board> mock = new Mock<Board>();
-            GameController sut = new GameController(mock.Object);
             string expected = "Exiting Game!";
             Regex regex = new Regex(expected);
 
@@ -131,7 +122,7 @@ namespace SoftTestPatience.Tests
                     Console.SetIn(sr);
 
                     // Act
-                    sut.RunGame();
+                    _gameController.RunGame();
 
                     // Assert
                     System.Text.RegularExpressions.Match match = regex.Match(sw.ToString());

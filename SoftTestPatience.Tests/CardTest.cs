@@ -7,6 +7,7 @@ namespace SoftTestPatience.Tests
     {
         private Mock<Card> _cardMock;
 
+        //BeforeEach
         public CardTest()
         {
             this._cardMock = new Mock<Card>(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>());
