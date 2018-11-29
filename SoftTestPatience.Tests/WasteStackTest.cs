@@ -16,7 +16,7 @@ namespace SoftTestPatience.Tests
             _fixture = new Fixture();
             _fixture.Customize(new AutoMoqCustomization());
 
-            _fixture.Create<WasteStack>();
+            _wasteStack = _fixture.Create<WasteStack>();
         }
 
         [Fact]
