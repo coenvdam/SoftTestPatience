@@ -3,7 +3,7 @@
 [assembly: InternalsVisibleTo("SoftTestPatience.Tests")]
 namespace SoftTestPatience
 {
-    enum Suits
+    public enum Suits
     {
         Hearts = 0,
         Diamonds = 1,

@@ -7,28 +7,28 @@ namespace SoftTestPatience
 {
     public interface ICardStack
     {
-        ICard TakeLastCard();
+        Card TakeLastCard();
         int GetStackSize();
     }
 
     abstract class CardStack : ICardStack
     {
         //Should only be called in this class and by unit tests
-        internal List<ICard> Cards;
+        internal List<Card> Cards;
 
-        protected CardStack(List<ICard> cards)
+        protected CardStack(List<Card> cards)
         {
             this.Cards = cards;
         }
 
-        public ICard TakeLastCard()
+        public Card TakeLastCard()
         {
             if(Cards.Count == 0)
             {
                 throw new InvalidOperationException();
             }
 
-            ICard lastCard = Cards[Cards.Count - 1];
+            Card lastCard = Cards[Cards.Count - 1];
             Cards.RemoveAt(Cards.Count - 1);
             return lastCard;
         }
