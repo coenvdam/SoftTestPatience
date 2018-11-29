@@ -16,7 +16,7 @@ namespace SoftTestPatience
             this.Cards = cards;
         }
 
-        public Card TakeLastCard()
+        public virtual Card TakeLastCard()
         {
             if(Cards.Count == 0)
             {

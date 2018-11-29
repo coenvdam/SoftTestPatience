@@ -152,7 +152,7 @@ namespace SoftTestPatience.Tests
         {
             //Arrange
             var expectedString = _fixture.Create<string>();
-            var cardMock = new Mock<Card>();
+            var cardMock = new Mock<Card>(_fixture.Create<int>(), _fixture.Create<Suits>(), _fixture.Create<bool>());
             cardMock.Setup(c => c.ToString()).Returns(expectedString);
 
             _foundationStack.Cards = new List<Card>()

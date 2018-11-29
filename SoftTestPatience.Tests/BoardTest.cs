@@ -61,8 +61,8 @@ namespace SoftTestPatience.Tests
         {
             //Arrange
             var card = _fixture.Create<Card>();
-            var originStackMock = new Mock<CardStack>();
-            var destinationStackMock = new Mock<CardStack>();
+            var originStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
+            var destinationStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
 
             originStackMock.Setup(o => o.TakeLastCard()).Returns(card);
             destinationStackMock.Setup(o => o.AddCard(card)).Returns(true);
@@ -80,8 +80,8 @@ namespace SoftTestPatience.Tests
         public void Move_TakeLastCardThrowsException_ShouldReturnFalse()
         {
             //Arrange
-            var originStackMock = new Mock<CardStack>();
-            var destinationStackMock = new Mock<CardStack>();
+            var originStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
+            var destinationStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
 
             originStackMock.Setup(o => o.TakeLastCard()).Throws(new InvalidOperationException());
 
@@ -99,8 +99,8 @@ namespace SoftTestPatience.Tests
         {
             //Arrange
             var card = _fixture.Create<Card>();
-            var originStackMock = new Mock<CardStack>();
-            var destinationStackMock = new Mock<CardStack>();
+            var originStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
+            var destinationStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
 
             originStackMock.Setup(o => o.TakeLastCard()).Returns(card);
             originStackMock.Setup(o => o.ReturnCard(card));
@@ -121,7 +121,7 @@ namespace SoftTestPatience.Tests
         {
             //Arrange
             var tableCardString = _fixture.Create<string>();
-            var cardMock = new Mock<Card>();
+            var cardMock = new Mock<Card>(_fixture.Create<int>(), _fixture.Create<Suits>(), _fixture.Create<bool>());
             cardMock.Setup(c => c.ToString()).Returns(tableCardString);
 
             var cardList = new List<Card>()
@@ -131,11 +131,11 @@ namespace SoftTestPatience.Tests
             };
 
             var wasteStackString = _fixture.Create<string>();
-            var wasteStackMock = new Mock<WasteStack>();
+            var wasteStackMock = new Mock<WasteStack>(_fixture.Create<List<Card>>());
             wasteStackMock.Setup(w => w.ToString()).Returns(wasteStackString);
 
             var foundationStackString = _fixture.Create<string>();
-            var foundationStackMock = new Mock<FoundationStack>();
+            var foundationStackMock = new Mock<FoundationStack>(_fixture.Create<List<Card>>(), _fixture.Create<Suits>());
             foundationStackMock.Setup(f => f.ToString()).Returns(foundationStackString);
 
             var stackList = new List<CardStack>()

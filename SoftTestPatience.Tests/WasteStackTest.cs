@@ -92,7 +92,7 @@ namespace SoftTestPatience.Tests
             //Arrange
             var cardString = _fixture.Create<string>();
             var expectedString = "[   ]" + cardString;
-            var cardMock = new Mock<Card>();
+            var cardMock = new Mock<Card>(_fixture.Create<int>(), _fixture.Create<Suits>(), _fixture.Create<bool>());
             cardMock.Setup(c => c.ToString()).Returns(expectedString);
 
             _wasteStack.Cards = new List<Card>()
@@ -118,7 +118,7 @@ namespace SoftTestPatience.Tests
             //Arrange
             var cardString = _fixture.Create<string>();
             var expectedString = "[///]" + cardString;
-            var cardMock = new Mock<Card>();
+            var cardMock = new Mock<Card>(_fixture.Create<int>(), _fixture.Create<Suits>(), _fixture.Create<bool>());
             cardMock.Setup(c => c.ToString()).Returns(expectedString);
 
             _wasteStack.Cards = new List<Card>()
