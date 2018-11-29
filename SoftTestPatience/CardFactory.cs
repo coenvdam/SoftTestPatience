@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SoftTestPatience
 {
@@ -12,14 +11,35 @@ namespace SoftTestPatience
 
     internal class CardFactory : ICardFactory
     {
-        public List<Card> GenerateSortedDeck()
+        public virtual List<Card> GenerateSortedDeck()
         {
-            throw new NotImplementedException();
+            var deck = new List<Card>();
+            for (int suit = 0; suit < 4; suit++)
+            {
+                for (int value = 1; value < 14; value++)
+                {
+                    deck.Add(new Card(value, (Suits) suit, true));
+                }
+            }
+
+            return deck;
         }
 
         public List<Card> GenerateRandomDeck()
         {
-            throw new NotImplementedException();
+            var deck = this.GenerateSortedDeck();
+
+            int deckCount = deck.Count;
+            while (deckCount > 1)
+            {
+                deckCount--;
+                int k = new Random().Next(deckCount + 1);
+                var value = deck[k];
+                deck[k] = deck[deckCount];
+                deck[deckCount] = value;
+            }
+
+            return deck;
         }
     }
 }
