@@ -20,7 +20,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void AddCard_RightValueRightSuitCard_shouldReturnTrue()
+        public void AddCard_RightValueRightSuitCard_ShouldReturnTrue()
         {
             //Arranged
             var value = _fixture.Create<int>();
@@ -40,7 +40,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void AddCard_WrongValueRightSuitCard_shouldReturnFalse()
+        public void AddCard_WrongValueRightSuitCard_ShouldReturnFalse()
         {
             //Arranged
             var value = _fixture.Create<int>();
@@ -60,7 +60,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void AddCard_RightValueWrongSuitCard_shouldReturnFalse()
+        public void AddCard_RightValueWrongSuitCard_ShouldReturnFalse()
         {
             //Arranged
             var value = _fixture.Create<int>();
@@ -81,7 +81,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void AddCard_WrongValueWrongSuitCard_shouldReturnFalse()
+        public void AddCard_WrongValueWrongSuitCard_ShouldReturnFalse()
         {
             //Arranged
             var value = _fixture.Create<int>();
@@ -102,7 +102,21 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void TakeLastCards_NumberEqualToStackCount_shouldReturnCards()
+        public void AddCard_EmptyStack_ShouldReturnTrue()
+        {
+            //Arrange
+            _tableStack.Cards = new List<Card>();
+            var card = new Card(_fixture.Create<int>(), _fixture.Create<Suits>(), _fixture.Create<bool>());
+
+            //Act
+            var result = _tableStack.AddCard(card);
+
+            //Assert
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void TakeLastCards_NumberEqualToStackCount_ShouldReturnCards()
         {
             //Arrange
             var expectedCards = new List<Card>()
@@ -127,7 +141,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void TakeLastCards_NumberHigherThanStackCount_shouldReturnInvalidOperationException()
+        public void TakeLastCards_NumberHigherThanStackCount_ShouldReturnInvalidOperationException()
         {
             //Arrange
             _tableStack.Cards = new List<Card>()
@@ -143,7 +157,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void TakeLastCards_NumberLowerThanStackCountButHigherThanUnhiddenCards_shouldReturnInvalidOperationException()
+        public void TakeLastCards_NumberLowerThanStackCountButHigherThanUnhiddenCards_ShouldReturnInvalidOperationException()
         {
             //Arrange
             _tableStack.Cards = new List<Card>()

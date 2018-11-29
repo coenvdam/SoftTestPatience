@@ -20,7 +20,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void AddCard_Card_shouldReturnInvalidOperationException()
+        public void AddCard_Card_ShouldReturnInvalidOperationException()
         {
             //Arrange
             var card = _fixture.Create<Card>();
@@ -30,7 +30,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void GetIndex_NoInput_shouldReturnIndex()
+        public void GetIndex_NoInput_ShouldReturnIndex()
         {
             //Arrange
             var expectedIndex = _fixture.Create<int>();
@@ -44,7 +44,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void IncrementIndex_IndexLowerThanCardCount_shouldReturnIncrementedIndex()
+        public void IncrementIndex_IndexLowerThanCardCount_ShouldReturnIncrementedIndex()
         {
             //Arrange
             _wasteStack.Cards = new List<Card>()
@@ -65,7 +65,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void IncrementIndex_IndexEqualToCardCount_shouldReturnResetIndex()
+        public void IncrementIndex_IndexEqualToCardCount_ShouldReturnResetIndex()
         {
             //Arrange
             _wasteStack.Cards = new List<Card>()

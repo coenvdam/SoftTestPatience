@@ -19,7 +19,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void AddCard_RightValueRightSuitCard_shouldReturnTrue()
+        public void AddCard_RightValueRightSuitCard_ShouldReturnTrue()
         {
             //Arranged
             var value = _fixture.Create<int>();
@@ -41,7 +41,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void AddCard_WrongValueRightSuitCard_shouldReturnFalse()
+        public void AddCard_WrongValueRightSuitCard_ShouldReturnFalse()
         {
             //Arranged
             var value = _fixture.Create<int>();
@@ -63,7 +63,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void AddCard_RightValueWrongSuitCard_shouldReturnFalse()
+        public void AddCard_RightValueWrongSuitCard_ShouldReturnFalse()
         {
             //Arranged
             var value = _fixture.Create<int>();
@@ -83,7 +83,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void AddCard_WrongValueWrongSuitCard_shouldReturnFalse()
+        public void AddCard_WrongValueWrongSuitCard_ShouldReturnFalse()
         {
             //Arranged
             var value = _fixture.Create<int>();
@@ -100,6 +100,22 @@ namespace SoftTestPatience.Tests
 
             //Assert
             Assert.False(result);
+        }
+
+        [Fact]
+        public void AddCard_EmptyStack_ShouldReturnTrue()
+        {
+            //Arrange
+            var suit = _fixture.Create<Suits>();
+            _foundationStack.Cards = new List<Card>();
+            _foundationStack.Suit = suit;
+            var card = new Card(_fixture.Create<int>(), suit, _fixture.Create<bool>());
+
+            //Act
+            var result = _foundationStack.AddCard(card);
+
+            //Assert
+            Assert.True(result);
         }
 
         [Fact]
