@@ -11,11 +11,14 @@ namespace SoftTestPatience
 
         public override bool AddCard(Card card)
         {
-            var lastCard = this.Cards[this.Cards.Count - 1];
-            if ((((int)card.Suit > 1 || (int)lastCard.Suit < 2) &&
-                 ((int)card.Suit < 2 || (int)lastCard.Suit > 1)) || card.Value != lastCard.Value - 1)
+            if (this.Cards.Count != 0)
             {
-                return false;
+                var lastCard = this.Cards[this.Cards.Count - 1];
+                if ((((int)card.Suit > 1 || (int)lastCard.Suit < 2) &&
+                     ((int)card.Suit < 2 || (int)lastCard.Suit > 1)) || card.Value != lastCard.Value - 1)
+                {
+                    return false;
+                }
             }
 
             this.Cards.Add(card);
