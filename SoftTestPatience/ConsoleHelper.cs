@@ -7,7 +7,7 @@ namespace SoftTestPatience
     interface IConsoleHelper
     {
         void SetEncoding();
-        void Write();
+        void Write(string text);
         string ReadInput();
     }
 
@@ -18,7 +18,7 @@ namespace SoftTestPatience
             throw new NotImplementedException();
         }
 
-        public void Write()
+        public void Write(string text)
         {
             throw new NotImplementedException();
         }
