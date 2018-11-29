@@ -9,6 +9,7 @@ namespace SoftTestPatience
     {
         Card TakeLastCard();
         int GetStackSize();
+        bool AddCard(Card card);
     }
 
     abstract class CardStack : ICardStack
@@ -36,6 +37,11 @@ namespace SoftTestPatience
         public int GetStackSize()
         {
             return Cards.Count;
+        }
+
+        public virtual bool AddCard(Card card)
+        {
+            throw new NotImplementedException();
         }
     }
 }
