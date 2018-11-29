@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SoftTestPatience
 {
-    class WasteStack : CardStack
+    public class WasteStack : CardStack
     {
         internal int Index;
 

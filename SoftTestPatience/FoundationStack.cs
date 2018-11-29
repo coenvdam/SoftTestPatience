@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SoftTestPatience
 {
-    class FoundationStack : CardStack
+    public class FoundationStack : CardStack
     {
         internal Suits Suit;
 
@@ -15,7 +15,7 @@ namespace SoftTestPatience
 
         public override bool AddCard(Card card)
         {
-            if (this.Cards.Count != 0 && this.Suit == card.Suit)
+            if (this.Cards.Count != 0 || this.Suit != card.Suit)
             {
                 var lastCard = this.Cards[this.Cards.Count - 1];
                 if (lastCard.Suit != card.Suit || lastCard.Value + 1 != card.Value)

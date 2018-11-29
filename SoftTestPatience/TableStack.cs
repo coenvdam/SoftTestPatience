@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SoftTestPatience
 {
-    class TableStack : CardStack
+    public class TableStack : CardStack
     {
         public TableStack(List<Card> cards) : base(cards)
         {

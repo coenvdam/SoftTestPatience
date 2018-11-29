@@ -5,14 +5,8 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
 namespace SoftTestPatience
 {
-    public interface ICardStack
-    {
-        Card TakeLastCard();
-        int GetStackSize();
-        bool AddCard(Card card);
-    }
 
-    abstract class CardStack : ICardStack
+    public abstract class CardStack
     {
         //Should only be called in this class and by unit tests
         internal List<Card> Cards;
@@ -42,6 +36,11 @@ namespace SoftTestPatience
         public virtual bool AddCard(Card card)
         {
             throw new InvalidOperationException();
+        }
+
+        public virtual void ReturnCard(Card card)
+        {
+            throw new NotImplementedException();
         }
     }
 }

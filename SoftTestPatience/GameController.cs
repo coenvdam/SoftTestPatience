@@ -7,12 +7,12 @@ namespace SoftTestPatience
     class GameController
     {
         internal IBoard Board;
-        internal IConsoleHelper ConsoleHelper;
+        private IConsoleHelper _consoleHelper;
 
         public GameController(IBoard board, IConsoleHelper consoleHelper)
         {
             this.Board = board;
-            this.ConsoleHelper = consoleHelper;
+            this._consoleHelper = consoleHelper;
         }
 
         public void NewGame()
