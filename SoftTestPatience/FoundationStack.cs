@@ -16,7 +16,7 @@ namespace SoftTestPatience
         public override bool AddCard(Card card)
         {
             var lastCard = this.Cards[this.Cards.Count - 1];
-            if (lastCard.Suit != this.Suit || lastCard.Value + 1 != card.Value)
+            if (lastCard.Suit != card.Suit || lastCard.Value + 1 != card.Value)
             {
                 return false;
             }

@@ -112,7 +112,7 @@ namespace SoftTestPatience.Tests
                 new Card(_fixture.Create<int>(), _fixture.Create<Suits>(), false),
                 new Card(_fixture.Create<int>(), _fixture.Create<Suits>(), false)
             };
-            _tableStack.Cards = expectedCards;
+            _tableStack.Cards = new List<Card>(expectedCards);
             
             //Act
             var actualCards = _tableStack.TakeLastCards(4);

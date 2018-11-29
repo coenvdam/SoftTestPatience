@@ -32,7 +32,7 @@ namespace SoftTestPatience
 
             var returnCards = new List<Card>();
             var stackSize = this.Cards.Count;
-            for (int i = stackSize; i > stackSize - numberOfCards; i--)
+            for (int i = stackSize - 1; i >= stackSize - numberOfCards; i--)
             {
                 returnCards.Add(this.Cards[i]);
                 this.Cards.Remove(this.Cards[i]);

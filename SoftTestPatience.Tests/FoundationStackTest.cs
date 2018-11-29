@@ -67,13 +67,11 @@ namespace SoftTestPatience.Tests
         {
             //Arranged
             var value = _fixture.Create<int>();
-            var stackSuit = Suits.Clubs;
-            _foundationStack.Suit = stackSuit;
             _foundationStack.Cards = new List<Card>()
             {
                 _fixture.Create<Card>(),
                 _fixture.Create<Card>(),
-                new Card(value, stackSuit, _fixture.Create<bool>())
+                new Card(value, Suits.Clubs, _fixture.Create<bool>())
             };
             var card = new Card(value + 1, Suits.Spades, _fixture.Create<bool>());
 
@@ -89,13 +87,11 @@ namespace SoftTestPatience.Tests
         {
             //Arranged
             var value = _fixture.Create<int>();
-            var stackSuit = Suits.Clubs;
-            _foundationStack.Suit = stackSuit;
             _foundationStack.Cards = new List<Card>()
             {
                 _fixture.Create<Card>(),
                 _fixture.Create<Card>(),
-                new Card(value, stackSuit, _fixture.Create<bool>())
+                new Card(value, Suits.Clubs, _fixture.Create<bool>())
             };
             var card = new Card(value, Suits.Spades, _fixture.Create<bool>());
 
