@@ -6,10 +6,9 @@ namespace SoftTestPatience
 {
     public class Card
     {
-        //Should only be called in this class and by unit tests
-        internal int Value;
-        internal Suits Suit;
-        internal bool Hidden;
+        public int Value;
+        public Suits Suit;
+        public bool Hidden;
 
         public Card(int value, Suits suit, bool hidden)
         {
