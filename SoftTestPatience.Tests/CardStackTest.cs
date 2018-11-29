@@ -13,6 +13,7 @@ namespace SoftTestPatience.Tests
         public CardStackTest()
         {
             this._cardStackMock = new Mock<CardStack>(It.IsAny<List<Card>>());
+            this._cardStackMock.CallBase = true;
         }
 
         [Fact]
@@ -92,6 +93,16 @@ namespace SoftTestPatience.Tests
 
             // Assert
             Assert.Equal(expectedAmount, actualAmount);
+        }
+
+        [Fact]
+        public void AddCard_Card_ShouldReturnInvalidOperationException()
+        {
+            //Arrange
+            var card = It.IsAny<Card>();
+
+            //Act & Assert
+            Assert.Throws<InvalidOperationException>(() => _cardStackMock.Object.AddCard(card));
         }
     }
 }
