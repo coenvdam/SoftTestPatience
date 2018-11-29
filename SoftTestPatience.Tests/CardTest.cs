@@ -5,8 +5,7 @@ namespace SoftTestPatience.Tests
 {
     public class CardTest
     {
-        private Card _card
-            ;
+        private Card _card;
 
         //BeforeEach
         public CardTest()
