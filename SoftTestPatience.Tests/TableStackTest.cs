@@ -107,10 +107,10 @@ namespace SoftTestPatience.Tests
             //Arrange
             var expectedCards = new List<Card>()
             {
-                new Card(_fixture.Create<int>(), _fixture.Create<Suits>(), true),
-                new Card(_fixture.Create<int>(), _fixture.Create<Suits>(), true),
-                new Card(_fixture.Create<int>(), _fixture.Create<Suits>(), true),
-                new Card(_fixture.Create<int>(), _fixture.Create<Suits>(), true)
+                new Card(_fixture.Create<int>(), _fixture.Create<Suits>(), false),
+                new Card(_fixture.Create<int>(), _fixture.Create<Suits>(), false),
+                new Card(_fixture.Create<int>(), _fixture.Create<Suits>(), false),
+                new Card(_fixture.Create<int>(), _fixture.Create<Suits>(), false)
             };
             _tableStack.Cards = expectedCards;
             
