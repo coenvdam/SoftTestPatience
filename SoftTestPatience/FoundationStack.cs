@@ -15,12 +15,20 @@ namespace SoftTestPatience
 
         public override bool AddCard(Card card)
         {
-            throw new NotImplementedException();
+            var lastCard = this.Cards[this.Cards.Count - 1];
+            if (lastCard.Suit != this.Suit || lastCard.Value + 1 != card.Value)
+            {
+                return false;
+            }
+
+            this.Cards.Add(card);
+            return true;
+
         }
 
         public Suits GetSuit()
         {
-            throw new NotImplementedException();
+            return this.Suit;
         }
     }
 }

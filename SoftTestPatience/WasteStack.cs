@@ -15,17 +15,21 @@ namespace SoftTestPatience
 
         public override bool AddCard(Card card)
         {
-            throw new NotImplementedException();
+            throw new InvalidOperationException();
         }
 
         public int GetIndex()
         {
-            throw new NotImplementedException();
+            return this.Index;
         }
 
         public void IncrementIndex()
         {
-            throw new NotImplementedException();
+            this.Index++;
+            if (this.Index >= this.Cards.Count)
+            {
+                this.Index = 0;
+            }
         }
     }
 }
