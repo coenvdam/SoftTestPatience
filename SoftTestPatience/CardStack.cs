@@ -41,7 +41,7 @@ namespace SoftTestPatience
 
         public virtual bool AddCard(Card card)
         {
-            throw new NotImplementedException();
+            throw new InvalidOperationException();
         }
     }
 }
