@@ -15,17 +15,17 @@ namespace SoftTestPatience
     {
         public void SetEncoding()
         {
-            throw new NotImplementedException();
+            Console.OutputEncoding = Encoding.UTF8;
         }
 
         public void Write(string text)
         {
-            throw new NotImplementedException();
+            Console.Write(text);
         }
 
         public string ReadInput()
         {
-            throw new NotImplementedException();
+            return Console.ReadLine();
         }
     }
 }
