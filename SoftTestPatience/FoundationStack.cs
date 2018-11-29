@@ -33,5 +33,10 @@ namespace SoftTestPatience
         {
             return this.Suit;
         }
+
+        public override string ToString()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

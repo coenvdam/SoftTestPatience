@@ -31,5 +31,10 @@ namespace SoftTestPatience
                 this.Index = 0;
             }
         }
+
+        public override string ToString()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -21,10 +21,10 @@ namespace SoftTestPatience
         {
             if (Hidden)
             {
-                return "???";
+                return "[???]";
             }
 
-            var toString = "";
+            var toString = "[";
             if (this.Value != 10)
             {
                 toString += " ";
@@ -65,7 +65,7 @@ namespace SoftTestPatience
                     break;
             }
 
-            return toString;
+            return toString + "]";
         }
     }
 }

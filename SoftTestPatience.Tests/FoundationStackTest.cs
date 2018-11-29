@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoFixture;
 using AutoFixture.AutoMoq;
+using Moq;
 using Xunit;
 
 namespace SoftTestPatience.Tests
@@ -130,6 +131,41 @@ namespace SoftTestPatience.Tests
 
             //Assert
             Assert.Equal(expectedSuit, actualSuit);
+        }
+
+        [Fact]
+        public void ToString_EmptyStack_ShouldReturnSuitString()
+        {
+            //Arrange
+            var expectedString = "[\u2663\u2663\u2663]";
+            _foundationStack.Suit = Suits.Clubs;
+
+            //Act
+            var actualString = _foundationStack.ToString();
+
+            //Assert
+            Assert.Equal(expectedString, actualString);
+        }
+
+        [Fact]
+        public void ToString_NotEmptyStack_ShouldReturnLastCard()
+        {
+            //Arrange
+            var expectedString = _fixture.Create<string>();
+            var cardMock = new Mock<Card>();
+            cardMock.Setup(c => c.ToString()).Returns(expectedString);
+
+            _foundationStack.Cards = new List<Card>()
+            {
+                cardMock.Object
+            };
+
+            //Act
+            var actualString = _foundationStack.ToString();
+
+            //Assert
+            cardMock.Verify(c => c.ToString(), Times.Once());
+            Assert.Equal(expectedString, actualString);
         }
     }
 }

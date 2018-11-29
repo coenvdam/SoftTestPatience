@@ -21,7 +21,7 @@ namespace SoftTestPatience.Tests
             _card.Suit = Suits.Hearts;
             _card.Hidden = false;
 
-            var expected = " A\u2665";
+            var expected = "[ A\u2665]";
 
             //Act
             var actual = _card.ToString();
@@ -38,7 +38,7 @@ namespace SoftTestPatience.Tests
             _card.Suit = Suits.Spades;
             _card.Hidden = false;
 
-            var expected = " J\u2660";
+            var expected = "[ J\u2660]";
 
             //Act
             var actual = _card.ToString();
@@ -55,7 +55,7 @@ namespace SoftTestPatience.Tests
             _card.Suit = Suits.Clubs;
             _card.Hidden = false;
 
-            var expected = " Q\u2663";
+            var expected = "[ Q\u2663]";
 
             //Act
             var actual = _card.ToString();
@@ -72,7 +72,7 @@ namespace SoftTestPatience.Tests
             _card.Suit = Suits.Diamonds;
             _card.Hidden = false;
 
-            var expected = " K\u2666";
+            var expected = "[ K\u2666]";
 
             //Act
             var actual = _card.ToString();
@@ -89,7 +89,7 @@ namespace SoftTestPatience.Tests
             _card.Suit = Suits.Diamonds;
             _card.Hidden = false;
 
-            var expected = "10\u2666";
+            var expected = "[10\u2666]";
 
             //Act
             var actual = _card.ToString();
@@ -106,7 +106,7 @@ namespace SoftTestPatience.Tests
             _card.Suit = Suits.Diamonds;
             _card.Hidden = true;
 
-            var expected = "???";
+            var expected = "[???]";
 
             //Act
             var actual = _card.ToString();

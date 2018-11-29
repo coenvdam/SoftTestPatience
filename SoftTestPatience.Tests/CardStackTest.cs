@@ -104,5 +104,19 @@ namespace SoftTestPatience.Tests
             //Act & Assert
             Assert.Throws<InvalidOperationException>(() => _cardStackMock.Object.AddCard(card));
         }
+
+        public void ReturnCard_Card_ShouldAddCardToCards()
+        {
+            //Arrange
+            var expectedCount = 1;
+            var card = It.IsAny<Card>();
+            _cardStackMock.Object.Cards = new List<Card>();
+
+            //Act
+            _cardStackMock.Object.ReturnCard(card);
+
+            //Assert
+            Assert.Equal(expectedCount, _cardStackMock.Object.Cards.Count);
+        }
     }
 }
