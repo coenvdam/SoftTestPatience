@@ -269,6 +269,40 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
+        public void RunGame_IncrementCommand_ShouldPrintUnknown()
+        {
+            //Arrange
+            var boardText = _fixture.Create<string>();
+            var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
+
+            var incrementCommand = "increment";
+            var incrementText = "There is another card on top of the waste stack now.\n";
+
+            var exitCommand = "exit";
+            var exitText = "Thank you for playing!\n";
+
+            _boardMock.Setup(b => b.ToString()).Returns(boardText);
+            _consoleHelperMock
+                .SetupSequence(c => c.ReadInput())
+                .Returns(incrementCommand)
+                .Returns(exitCommand);
+
+            //Act
+            _gameController.RunGame();
+
+            //Assert
+            _boardMock.Verify(b => b.ToString(), Times.Exactly(2));
+            _boardMock.Verify(b => b.Reset(), Times.Once);
+            _boardMock.Verify(b => b.IncrementWasteStack(), Times.Once);
+            _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
+            _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(2));
+            _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(incrementText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(5));
+        }
+
+        [Fact]
         public void RunGame_AllCommands_ShouldRunGame()
         {
             //Arrange
@@ -304,6 +338,9 @@ namespace SoftTestPatience.Tests
             var unknownCommand = "unknown";
             var unknownText = "I don't know that command. Try something else.\n";
 
+            var incrementCommand = "increment";
+            var incrementText = "There is another card on top of the waste stack now.\n";
+
             var exitCommand = "exit";
             var exitText = "Thank you for playing!\n";
 
@@ -316,6 +353,7 @@ namespace SoftTestPatience.Tests
                 .Returns(failedMoveCommand)
                 .Returns(newGameCommand)
                 .Returns(unknownCommand)
+                .Returns(incrementCommand)
                 .Returns(exitCommand);
             
             _boardMock.Setup(b => b.Move(successfulMoveOriginStack, successfulMoveDestinationStack, 1)).Returns(true);
@@ -330,9 +368,10 @@ namespace SoftTestPatience.Tests
             _boardMock.Verify(b => b.Move(successfulMoveOriginStack, successfulMoveDestinationStack, 1), Times.Once);
             _boardMock.Verify(b => b.Move(failedMoveOriginStack, failedMoveDestinationStack, failedMoveNumberOfCards), Times.Once);
             _boardMock.Verify(b => b.Move(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), Times.Exactly(2));
+            _boardMock.Verify(b => b.IncrementWasteStack(), Times.Once);
 
             _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
-            _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(7));
+            _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(8));
             _consoleHelperMock.Verify(c => c.Write(welcomeText),Times.Once);
             _consoleHelperMock.Verify(c => c.Write(creditsText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(helpText), Times.Once);
@@ -340,8 +379,9 @@ namespace SoftTestPatience.Tests
             _consoleHelperMock.Verify(c => c.Write(failedMoveText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(newGameText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(unknownText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(incrementText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
-            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(15));
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(17));
         }
 
         [Fact]
