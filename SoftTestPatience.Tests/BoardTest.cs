@@ -57,6 +57,100 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
+        public void Move_StackNumberHigherThanStackNumbers_ShouldReturnFalse()
+        {
+            //Arrange
+            var originStack = 15;
+            var destinationStack = 8;
+            var numberOfCards = 2;
+
+            //Act
+            var result = _board.Move(originStack, destinationStack, numberOfCards);
+
+            //Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void Move_NumberHigherThanOneButNoTwoTableStacks_ShouldReturnFalse()
+        {
+            //Arrange
+            var originStack = 4;
+            var destinationStack = 8;
+            var numberOfCards = 2;
+
+            //Act
+            var result = _board.Move(originStack, destinationStack, numberOfCards);
+
+            //Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void Move_NumberHigherThanOneAndTwoTableStacksButUnsuccesfulMove_ShouldReturnFalse()
+        {
+            //Arrange
+            var originStack = 0;
+            var destinationStack = 1;
+            var numberOfCards = _fixture.Create<int>();
+
+            var originStackMock = new Mock<TableStack>(_fixture.Create<List<Card>>());
+            var destinationStackMock = new Mock<TableStack>(_fixture.Create<List<Card>>());
+
+            _board.Stacks = new List<CardStack>()
+            {
+                originStackMock.Object,
+                destinationStackMock.Object
+            };
+
+            originStackMock.Setup(o => o.TakeLastCards(numberOfCards)).Throws(new InvalidOperationException());
+
+            //Act
+            var result = _board.Move(originStack, destinationStack, numberOfCards);
+
+            //Assert
+            originStackMock.Verify(o => o.TakeLastCards(numberOfCards), Times.Once);
+            destinationStackMock.Verify(d => d.AddCard(It.IsAny<Card>()), Times.Never);
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void Move_DifferentStacksOneCardSuccesfulMove_ShouldReturnTrue()
+        {
+            //Arrange
+            var originStack = 0;
+            var destinationStack = 8;
+            var numberOfCards = 1;
+            var card = _fixture.Create<Card>();
+            var originStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
+            var destinationStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
+
+            _board.Stacks = new List<CardStack>()
+            {
+                originStackMock.Object,
+                _fixture.Create<CardStack>(),
+                _fixture.Create<CardStack>(),
+                _fixture.Create<CardStack>(),
+                _fixture.Create<CardStack>(),
+                _fixture.Create<CardStack>(),
+                _fixture.Create<CardStack>(),
+                _fixture.Create<CardStack>(),
+                destinationStackMock.Object
+            };
+
+            originStackMock.Setup(o => o.TakeLastCard()).Returns(card);
+            destinationStackMock.Setup(o => o.AddCard(card)).Returns(true);
+
+            //Act
+            var result = _board.Move(originStack, destinationStack, numberOfCards);
+
+            //Assert
+            originStackMock.Verify(o => o.TakeLastCard(), Times.Once);
+            destinationStackMock.Verify(d => d.AddCard(card), Times.Once);
+            Assert.True(result);
+        }
+
+        [Fact]
         public void Move_CardFitsOnDestinationStack_ShouldReturnTrue()
         {
             //Arrange
@@ -188,6 +282,30 @@ namespace SoftTestPatience.Tests
             destinationStackMock.Verify(d => d.TakeLastCards(1), Times.Once);
             originStackMock.Verify(o => o.ReturnCard(It.IsAny<Card>()), Times.Exactly(3));
             Assert.False(result);
+        }
+
+        [Fact]
+        public void IncrementWasteStack_NoInput_ShouldIncrementWasteStack()
+        {
+            //Arrange
+            var wasteStackMock = new Mock<WasteStack>(_fixture.Create<List<Card>>());
+            _board.Stacks = new List<CardStack>()
+            {
+                _fixture.Create<CardStack>(),
+                _fixture.Create<CardStack>(),
+                _fixture.Create<CardStack>(),
+                _fixture.Create<CardStack>(),
+                _fixture.Create<CardStack>(),
+                _fixture.Create<CardStack>(),
+                _fixture.Create<CardStack>(),
+                wasteStackMock.Object
+            };
+
+            //Act
+            _board.IncrementWasteStack();
+
+            //Assert
+            wasteStackMock.Verify(w => w.IncrementIndex(), Times.Once);
         }
 
         [Fact]

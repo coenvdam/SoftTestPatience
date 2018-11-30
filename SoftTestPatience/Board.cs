@@ -7,8 +7,10 @@ namespace SoftTestPatience
     public interface IBoard
     {
         void Reset();
+        bool Move(int originStack, int destinationStack, int numberOfCards);
         bool Move(CardStack originStack, CardStack destitationStack);
         bool Move(TableStack originStack, TableStack destinationStack, int numberOfCards);
+        void IncrementWasteStack();
         string ToString();
     }
 
@@ -60,6 +62,11 @@ namespace SoftTestPatience
             }
         }
 
+        public bool Move(int originStack, int destitationStack, int numberOfCards)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Move(CardStack originStack, CardStack destinationStack)
         {
             Card card;
@@ -104,6 +111,11 @@ namespace SoftTestPatience
             }
 
             return true;
+        }
+
+        public void IncrementWasteStack()
+        {
+            throw new NotImplementedException();
         }
 
         public override string ToString()
