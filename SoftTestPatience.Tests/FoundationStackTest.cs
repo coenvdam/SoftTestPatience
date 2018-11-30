@@ -152,10 +152,9 @@ namespace SoftTestPatience.Tests
         public void ToString_NotEmptyStack_ShouldReturnLastCard()
         {
             //Arrange
-            var cardString = _fixture.Create<string>();
-            var expectedString = $"[{cardString}]";
+            var expectedString = _fixture.Create<string>();
             var cardMock = new Mock<Card>(_fixture.Create<int>(), _fixture.Create<Suits>(), _fixture.Create<bool>());
-            cardMock.Setup(c => c.ToString()).Returns(cardString);
+            cardMock.Setup(c => c.ToString()).Returns(expectedString);
 
             _foundationStack.Cards = new List<Card>()
             {
