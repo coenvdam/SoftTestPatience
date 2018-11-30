@@ -23,6 +23,8 @@ namespace SoftTestPatience
 
             while (true)
             {
+                _consoleHelper.Write(_board.ToString());
+
                 var input = _consoleHelper.ReadInput();
                 var inputArray = input.ToLower().Split(" ");
                 var inputList = inputArray.Where(s => !string.IsNullOrWhiteSpace(s)).ToList();

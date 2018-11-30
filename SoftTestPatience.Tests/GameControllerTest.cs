@@ -48,7 +48,7 @@ namespace SoftTestPatience.Tests
             _consoleHelperMock.Verify(c => c.ReadInput(), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
-            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(2));
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
         }
 
         [Fact]
@@ -83,7 +83,7 @@ namespace SoftTestPatience.Tests
             _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(creditsText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
-            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(5));
         }
 
         [Fact]
@@ -122,7 +122,7 @@ namespace SoftTestPatience.Tests
             _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(helpText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
-            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(5));
         }
 
         [Fact]
@@ -160,7 +160,7 @@ namespace SoftTestPatience.Tests
             _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(succesfulMoveText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
-            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(5));
         }
 
         [Fact]
@@ -199,7 +199,7 @@ namespace SoftTestPatience.Tests
             _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(failedMoveText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
-            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(5));
         }
 
         [Fact]
@@ -232,7 +232,7 @@ namespace SoftTestPatience.Tests
             _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(newGameText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
-            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(5));
         }
 
         [Fact]
@@ -265,7 +265,7 @@ namespace SoftTestPatience.Tests
             _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(unknownText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
-            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(5));
         }
 
         [Fact]
@@ -325,7 +325,7 @@ namespace SoftTestPatience.Tests
             _gameController.RunGame();
 
             //Assert
-            _boardMock.Verify(b => b.ToString(), Times.Exactly(8));
+            _boardMock.Verify(b => b.ToString(), Times.Exactly(7));
             _boardMock.Verify(b => b.Reset(), Times.Exactly(2));
             _boardMock.Verify(b => b.Move(successfulMoveOriginStack, successfulMoveDestinationStack, 1), Times.Once);
             _boardMock.Verify(b => b.Move(failedMoveOriginStack, failedMoveDestinationStack, failedMoveNumberOfCards), Times.Once);
@@ -341,7 +341,7 @@ namespace SoftTestPatience.Tests
             _consoleHelperMock.Verify(c => c.Write(newGameText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(unknownText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
-            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(8));
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(15));
         }
 
         [Fact]
