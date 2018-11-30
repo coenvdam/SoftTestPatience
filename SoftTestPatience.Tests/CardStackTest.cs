@@ -105,6 +105,7 @@ namespace SoftTestPatience.Tests
             Assert.Throws<InvalidOperationException>(() => _cardStackMock.Object.AddCard(card));
         }
 
+        [Fact]
         public void ReturnCard_Card_ShouldAddCardToCards()
         {
             //Arrange

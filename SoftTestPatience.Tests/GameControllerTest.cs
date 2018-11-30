@@ -25,6 +25,226 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
+        public void RunGame_ExitCommand_ShouldExitGame()
+        {
+            //Arrange
+            var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
+
+            var exitCommand = "exit";
+            var exitText = "Thank you for playing!\n";
+
+            _consoleHelperMock.Setup(c => c.ReadInput()).Returns(exitCommand);
+
+            //Act
+            _gameController.RunGame();
+
+            //Assert
+            _boardMock.Verify(b => b.Reset(), Times.Once);
+            _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
+            _consoleHelperMock.Verify(c => c.ReadInput(), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(2));
+        }
+
+        [Fact]
+        public void RunGame_CreditsCommand_ShouldPrintCredits()
+        {
+            //Arrange
+            var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
+
+            var creditsCommand = "credits";
+            var creditsText = "This game of Patience was made by Dennis Stiekema (ds222tk) and Cornelis Jan (Coen) van Dam (cv222gk)\n" +
+                              "for the course Software Testing (2DV610) at Linnaeus University\n";
+
+            var exitCommand = "exit";
+            var exitText = "Thank you for playing!\n";
+
+            _consoleHelperMock
+                .SetupSequence(c => c.ReadInput())
+                .Returns(creditsCommand)
+                .Returns(exitCommand);
+
+            //Act
+            _gameController.RunGame();
+
+            //Assert
+            _boardMock.Verify(b => b.Reset(), Times.Once);
+            _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
+            _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(2));
+            _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(creditsText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
+        }
+
+        [Fact]
+        public void RunGame_HelpCommand_ShouldPrintHelp()
+        {
+            //Arrange
+            var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
+
+            var helpCommand = "help";
+            var helpText = "To move a card from one stack to another, first type the number of the stack with the card,\n" +
+                           "then the number of the stack where you want to move it to. If you type a third number, it will\n" +
+                           "move the amount of cards of that number. The table stacks are numbered 0 - 6, the waste stack\n" +
+                           "is number 7 and the foundation stacks are numbered 8 - 11. An example of a command is '5 6 2'\n" +
+                           "Besides moving a card, you can also go through the waste stack, with 'increment waste', ask for\n" +
+                           "help with 'help', see the credits with 'credits' and start a new game with 'new'.\n";
+
+            var exitCommand = "exit";
+            var exitText = "Thank you for playing!\n";
+
+            _consoleHelperMock
+                .SetupSequence(c => c.ReadInput())
+                .Returns(helpCommand)
+                .Returns(exitCommand);
+
+            //Act
+            _gameController.RunGame();
+
+            //Assert
+            _boardMock.Verify(b => b.Reset(), Times.Once);
+            _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
+            _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(2));
+            _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(helpText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
+        }
+
+        [Fact]
+        public void RunGame_SuccessfulMoveCommand_ShouldMoveCard()
+        {
+            //Arrange
+            var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
+
+            var successfulMoveOriginStack = 5;
+            var successfulMoveDestinationStack = 7;
+            var successfulMoveCommand = $"{successfulMoveOriginStack} {successfulMoveDestinationStack}";
+            var succesfulMoveText = "The move was successful.\n";
+
+            var exitCommand = "exit";
+            var exitText = "Thank you for playing!\n";
+
+            _consoleHelperMock
+                .SetupSequence(c => c.ReadInput())
+                .Returns(successfulMoveCommand)
+                .Returns(exitCommand);
+
+            _boardMock.Setup(b => b.Move(successfulMoveOriginStack, successfulMoveDestinationStack, 1)).Returns(true);
+
+            //Act
+            _gameController.RunGame();
+
+            //Assert
+            _boardMock.Verify(b => b.Reset(), Times.Once);
+            _boardMock.Verify(b => b.Move(successfulMoveOriginStack, successfulMoveDestinationStack, 1), Times.Once);
+            _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
+            _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(2));
+            _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(succesfulMoveText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
+        }
+
+        [Fact]
+        public void RunGame_FailedMoveCommand_ShouldPrintFail()
+        {
+            //Arrange
+            var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
+
+            var failedMoveOriginStack = 1;
+            var failedMoveDestinationStack = 2;
+            var failedMoveNumberOfCards = 3;
+            var failedMoveCommand = $"{failedMoveOriginStack} {failedMoveDestinationStack} {failedMoveNumberOfCards}";
+            var failedMoveText = "You can't move the cards like that. Try something else.\n";
+
+            var exitCommand = "exit";
+            var exitText = "Thank you for playing!\n";
+
+            _consoleHelperMock
+                .SetupSequence(c => c.ReadInput())
+                .Returns(failedMoveCommand)
+                .Returns(exitCommand);
+
+            _boardMock.Setup(b => b.Move(failedMoveOriginStack, failedMoveDestinationStack, failedMoveNumberOfCards)).Returns(false);
+
+            //Act
+            _gameController.RunGame();
+
+            //Assert
+            _boardMock.Verify(b => b.Reset(), Times.Once);
+            _boardMock.Verify(b => b.Move(failedMoveOriginStack, failedMoveDestinationStack, failedMoveNumberOfCards), Times.Once);
+            _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
+            _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(2));
+            _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(failedMoveText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
+        }
+
+        [Fact]
+        public void RunGame_NewGameCommand_ShouldResetBoard()
+        {
+            //Arrange
+            var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
+
+            var newGameCommand = "new";
+            var newGameText = "The board has been reset!\n";
+
+            var exitCommand = "exit";
+            var exitText = "Thank you for playing!\n";
+
+            _consoleHelperMock
+                .SetupSequence(c => c.ReadInput())
+                .Returns(newGameCommand)
+                .Returns(exitCommand);
+
+            //Act
+            _gameController.RunGame();
+
+            //Assert
+            _boardMock.Verify(b => b.Reset(), Times.Exactly(2));
+            _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
+            _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(2));
+            _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(newGameText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
+        }
+
+        [Fact]
+        public void RunGame_UnknownCommand_ShouldPrintUnknown()
+        {
+            //Arrange
+            var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
+
+            var unknownCommand = "unknown";
+            var unknownText = "I don't know that command. Try something else.\n";
+
+            var exitCommand = "exit";
+            var exitText = "Thank you for playing!\n";
+
+            _consoleHelperMock
+                .SetupSequence(c => c.ReadInput())
+                .Returns(unknownCommand)
+                .Returns(exitCommand);
+
+            //Act
+            _gameController.RunGame();
+
+            //Assert
+            _boardMock.Verify(b => b.Reset(), Times.Once);
+            _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
+            _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(2));
+            _consoleHelperMock.Verify(c => c.Write(welcomeText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(unknownText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(3));
+        }
+
+        [Fact]
         public void RunGame_AllCommands_ShouldRunGame()
         {
             //Arrange
@@ -56,6 +276,9 @@ namespace SoftTestPatience.Tests
             var newGameCommand = "new";
             var newGameText = "The board has been reset!\n";
 
+            var unknownCommand = "unknown";
+            var unknownText = "I don't know that command. Try something else.\n";
+
             var exitCommand = "exit";
             var exitText = "Thank you for playing!\n";
 
@@ -66,6 +289,7 @@ namespace SoftTestPatience.Tests
                 .Returns(successfulMoveCommand)
                 .Returns(failedMoveCommand)
                 .Returns(newGameCommand)
+                .Returns(unknownCommand)
                 .Returns(exitCommand);
             
             _boardMock.Setup(b => b.Move(successfulMoveOriginStack, successfulMoveDestinationStack, 1)).Returns(true);
@@ -81,15 +305,16 @@ namespace SoftTestPatience.Tests
             _boardMock.Verify(b => b.Move(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>()), Times.Exactly(2));
 
             _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
-            _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(6));
+            _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(7));
             _consoleHelperMock.Verify(c => c.Write(welcomeText),Times.Once);
             _consoleHelperMock.Verify(c => c.Write(creditsText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(helpText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(succesfulMoveText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(failedMoveText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(newGameText), Times.Once);
+            _consoleHelperMock.Verify(c => c.Write(unknownText), Times.Once);
             _consoleHelperMock.Verify(c => c.Write(exitText), Times.Once);
-            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(7));
+            _consoleHelperMock.Verify(c => c.Write(It.IsAny<string>()), Times.Exactly(8));
         }
 
         [Fact]
