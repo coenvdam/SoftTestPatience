@@ -58,6 +58,7 @@ namespace SoftTestPatience
             //Fill WasteStack
             foreach (var card in deck)
             {
+                card.Hidden = false;
                 this.Stacks[7].ReturnCard(card);
             }
         }

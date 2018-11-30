@@ -50,6 +50,10 @@ namespace SoftTestPatience.Tests
                 Assert.Equal(i, _board.Stacks[i - 1].Cards.Count);
             }
             Assert.Equal(expectedWasteStackCount, _board.Stacks[7].Cards.Count);
+            foreach (var card in _board.Stacks[7].Cards)
+            {
+                Assert.False(card.Hidden);
+            }
             for (int i = 0; i < 4; i++)
             {
                 Assert.Equal(expectedFoundationStackCount, _board.Stacks[8 + i].Cards.Count);
