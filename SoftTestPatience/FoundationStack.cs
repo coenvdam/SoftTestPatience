@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SoftTestPatience
 {
@@ -36,7 +34,22 @@ namespace SoftTestPatience
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            if (this.Cards.Count == 0)
+            {
+                switch (this.Suit)
+                {
+                    case Suits.Hearts:
+                        return "[\u2665\u2665\u2665]";
+                    case Suits.Diamonds:
+                        return "[\u2666\u2666\u2666]";
+                    case Suits.Clubs:
+                        return "[\u2663\u2663\u2663]";
+                    case Suits.Spades:
+                        return "[\u2660\u2660\u2660]";
+                }
+            }
+
+            return $"[{this.Cards[this.Cards.Count - 1]}]";
         }
     }
 }

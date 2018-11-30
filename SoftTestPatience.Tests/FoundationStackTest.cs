@@ -139,6 +139,7 @@ namespace SoftTestPatience.Tests
             //Arrange
             var expectedString = "[\u2663\u2663\u2663]";
             _foundationStack.Suit = Suits.Clubs;
+            _foundationStack.Cards = new List<Card>();
 
             //Act
             var actualString = _foundationStack.ToString();
@@ -151,9 +152,10 @@ namespace SoftTestPatience.Tests
         public void ToString_NotEmptyStack_ShouldReturnLastCard()
         {
             //Arrange
-            var expectedString = _fixture.Create<string>();
+            var cardString = _fixture.Create<string>();
+            var expectedString = $"[{cardString}]";
             var cardMock = new Mock<Card>(_fixture.Create<int>(), _fixture.Create<Suits>(), _fixture.Create<bool>());
-            cardMock.Setup(c => c.ToString()).Returns(expectedString);
+            cardMock.Setup(c => c.ToString()).Returns(cardString);
 
             _foundationStack.Cards = new List<Card>()
             {

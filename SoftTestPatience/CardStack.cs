@@ -40,7 +40,7 @@ namespace SoftTestPatience
 
         public virtual void ReturnCard(Card card)
         {
-            throw new NotImplementedException();
+            this.Cards.Add(card);
         }
     }
 }

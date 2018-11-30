@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SoftTestPatience
 {
@@ -34,7 +33,13 @@ namespace SoftTestPatience
 
         public override string ToString()
         {
-            throw new NotImplementedException();
+            var text = "";
+
+            text += this.Index == 0 ? "[   ]" : "[///]";
+
+            text += this.Cards[this.Cards.Count - (Index + 1)].ToString();
+
+            return text;
         }
     }
 }

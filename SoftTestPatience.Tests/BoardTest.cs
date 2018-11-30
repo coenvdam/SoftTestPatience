@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using AutoFixture;
+﻿using AutoFixture;
 using AutoFixture.AutoMoq;
 using Moq;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace SoftTestPatience.Tests
@@ -47,7 +47,7 @@ namespace SoftTestPatience.Tests
             Assert.Equal(expectedStackCount, _board.Stacks.Count);
             for (int i = 1; i < 8; i++)
             {
-                Assert.Equal(i, _board.Stacks[i-1].Cards.Count);
+                Assert.Equal(i, _board.Stacks[i - 1].Cards.Count);
             }
             Assert.Equal(expectedWasteStackCount, _board.Stacks[7].Cards.Count);
             for (int i = 0; i < 4; i++)
@@ -72,7 +72,7 @@ namespace SoftTestPatience.Tests
 
             //Assert
             originStackMock.Verify(o => o.TakeLastCard(), Times.Once);
-            destinationStackMock.Verify(o => o.AddCard(card), Times.Once);
+            destinationStackMock.Verify(d => d.AddCard(card), Times.Once);
             Assert.True(result);
         }
 
@@ -90,7 +90,7 @@ namespace SoftTestPatience.Tests
 
             //Assert
             originStackMock.Verify(o => o.TakeLastCard(), Times.Once);
-            destinationStackMock.Verify(o => o.AddCard(It.IsAny<Card>()), Times.Never);
+            destinationStackMock.Verify(d => d.AddCard(It.IsAny<Card>()), Times.Never);
             Assert.False(result);
         }
 
@@ -111,7 +111,7 @@ namespace SoftTestPatience.Tests
 
             //Assert
             originStackMock.Verify(o => o.TakeLastCard(), Times.Once);
-            destinationStackMock.Verify(o => o.AddCard(card), Times.Once);
+            destinationStackMock.Verify(d => d.AddCard(card), Times.Once);
             originStackMock.Verify(o => o.ReturnCard(card), Times.Once);
             Assert.False(result);
         }
@@ -138,7 +138,7 @@ namespace SoftTestPatience.Tests
 
             //Assert
             originStackMock.Verify(o => o.TakeLastCards(numberOfCards), Times.Once);
-            destinationStackMock.Verify(o => o.AddCard(It.IsAny<Card>()), Times.Exactly(3));
+            destinationStackMock.Verify(d => d.AddCard(It.IsAny<Card>()), Times.Exactly(3));
             Assert.True(result);
         }
 
@@ -157,7 +157,7 @@ namespace SoftTestPatience.Tests
 
             //Assert
             originStackMock.Verify(o => o.TakeLastCards(numberOfCards), Times.Once);
-            destinationStackMock.Verify(o => o.AddCard(It.IsAny<Card>()), Times.Never);
+            destinationStackMock.Verify(d => d.AddCard(It.IsAny<Card>()), Times.Never);
             Assert.False(result);
         }
 
@@ -184,7 +184,8 @@ namespace SoftTestPatience.Tests
 
             //Assert
             originStackMock.Verify(o => o.TakeLastCards(numberOfCards), Times.Once);
-            destinationStackMock.Verify(o => o.AddCard(It.IsAny<Card>()), Times.Exactly(2));
+            destinationStackMock.Verify(d => d.AddCard(It.IsAny<Card>()), Times.Exactly(2));
+            destinationStackMock.Verify(d => d.TakeLastCards(1), Times.Once);
             originStackMock.Verify(o => o.ReturnCard(It.IsAny<Card>()), Times.Exactly(3));
             Assert.False(result);
         }
@@ -248,6 +249,8 @@ namespace SoftTestPatience.Tests
             {
                 expectedString += tableCardString;
             }
+
+            expectedString += "\n";
 
             //Act
             var actualString = _board.ToString();
