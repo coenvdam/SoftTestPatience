@@ -363,7 +363,7 @@ namespace SoftTestPatience.Tests
             _gameController.RunGame();
 
             //Assert
-            _boardMock.Verify(b => b.ToString(), Times.Exactly(7));
+            _boardMock.Verify(b => b.ToString(), Times.Exactly(8));
             _boardMock.Verify(b => b.Reset(), Times.Exactly(2));
             _boardMock.Verify(b => b.Move(successfulMoveOriginStack, successfulMoveDestinationStack, 1), Times.Once);
             _boardMock.Verify(b => b.Move(failedMoveOriginStack, failedMoveDestinationStack, failedMoveNumberOfCards), Times.Once);

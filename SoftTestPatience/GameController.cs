@@ -43,6 +43,9 @@ namespace SoftTestPatience
                     case "new":
                         this.NewGame();
                         break;
+                    case "increment":
+                        this.IncrementWasteStack();
+                        break;
                     default:
                         var onlyNumbers = true;
                         foreach (var word in inputList)
@@ -100,6 +103,7 @@ namespace SoftTestPatience
         public void IncrementWasteStack()
         {
             _board.IncrementWasteStack();
+            _consoleHelper.Write("There is another card on top of the waste stack now.\n");
         }
 
         public void Help()
