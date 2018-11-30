@@ -62,9 +62,31 @@ namespace SoftTestPatience
             }
         }
 
-        public bool Move(int originStack, int destitationStack, int numberOfCards)
+        public bool Move(int originStack, int destinationStack, int numberOfCards)
         {
-            throw new NotImplementedException();
+            if (originStack > 11 || destinationStack > 11 || numberOfCards <= 0)
+            {
+                return false;
+            }
+
+            if (originStack > 6 || destinationStack > 6)
+            {
+                if (numberOfCards != 1)
+                {
+                    return false;
+                }
+                var origin = this.Stacks[originStack];
+                var destination = this.Stacks[destinationStack];
+
+                return Move(origin, destination);
+            }
+            else
+            {
+                var origin = (TableStack)this.Stacks[originStack];
+                var destination = (TableStack)this.Stacks[destinationStack];
+
+                return this.Move(origin, destination, numberOfCards);
+            }
         }
 
         public bool Move(CardStack originStack, CardStack destinationStack)
@@ -115,7 +137,7 @@ namespace SoftTestPatience
 
         public void IncrementWasteStack()
         {
-            throw new NotImplementedException();
+            ((WasteStack)this.Stacks[7]).IncrementIndex();
         }
 
         public override string ToString()

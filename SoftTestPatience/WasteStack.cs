@@ -22,7 +22,7 @@ namespace SoftTestPatience
             return this.Index;
         }
 
-        public void IncrementIndex()
+        public virtual void IncrementIndex()
         {
             this.Index++;
             if (this.Index >= this.Cards.Count)
