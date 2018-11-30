@@ -17,6 +17,11 @@ namespace SoftTestPatience
             this.Hidden = hidden;
         }
 
+        public void Flip()
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
             if (Hidden)

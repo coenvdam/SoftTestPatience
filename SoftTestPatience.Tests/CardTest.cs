@@ -14,6 +14,34 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
+        public void Flip_HiddenCard_ShouldUnhideCard()
+        {
+            //Arrange
+            var expectedHidden = false;
+            _card.Hidden = true;
+
+            //Act
+            _card.Flip();
+
+            //Assert
+            Assert.Equal(expectedHidden, _card.Hidden);
+        }
+
+        [Fact]
+        public void Flip_UnhiddenCard_ShouldHideCard()
+        {
+            //Arrange
+            var expectedHidden = true;
+            _card.Hidden = false;
+
+            //Act
+            _card.Flip();
+
+            //Assert
+            Assert.Equal(expectedHidden, _card.Hidden);
+        }
+
+        [Fact]
         public void ToString_UnhiddenAceOfHearts_ShouldReturnAceOfHearts()
         {
             //Arrange
