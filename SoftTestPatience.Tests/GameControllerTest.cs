@@ -28,17 +28,21 @@ namespace SoftTestPatience.Tests
         public void RunGame_ExitCommand_ShouldExitGame()
         {
             //Arrange
+            var boardText = _fixture.Create<string>();
+
             var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
 
             var exitCommand = "exit";
             var exitText = "Thank you for playing!\n";
 
+            _boardMock.Setup(b => b.ToString()).Returns(boardText);
             _consoleHelperMock.Setup(c => c.ReadInput()).Returns(exitCommand);
 
             //Act
             _gameController.RunGame();
 
             //Assert
+            _boardMock.Verify(b => b.ToString(), Times.Once);
             _boardMock.Verify(b => b.Reset(), Times.Once);
             _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
             _consoleHelperMock.Verify(c => c.ReadInput(), Times.Once);
@@ -51,6 +55,8 @@ namespace SoftTestPatience.Tests
         public void RunGame_CreditsCommand_ShouldPrintCredits()
         {
             //Arrange
+            var boardText = _fixture.Create<string>();
+
             var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
 
             var creditsCommand = "credits";
@@ -60,6 +66,7 @@ namespace SoftTestPatience.Tests
             var exitCommand = "exit";
             var exitText = "Thank you for playing!\n";
 
+            _boardMock.Setup(b => b.ToString()).Returns(boardText);
             _consoleHelperMock
                 .SetupSequence(c => c.ReadInput())
                 .Returns(creditsCommand)
@@ -69,6 +76,7 @@ namespace SoftTestPatience.Tests
             _gameController.RunGame();
 
             //Assert
+            _boardMock.Verify(b => b.ToString(), Times.Exactly(2));
             _boardMock.Verify(b => b.Reset(), Times.Once);
             _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
             _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(2));
@@ -82,6 +90,8 @@ namespace SoftTestPatience.Tests
         public void RunGame_HelpCommand_ShouldPrintHelp()
         {
             //Arrange
+            var boardText = _fixture.Create<string>();
+
             var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
 
             var helpCommand = "help";
@@ -95,6 +105,7 @@ namespace SoftTestPatience.Tests
             var exitCommand = "exit";
             var exitText = "Thank you for playing!\n";
 
+            _boardMock.Setup(b => b.ToString()).Returns(boardText);
             _consoleHelperMock
                 .SetupSequence(c => c.ReadInput())
                 .Returns(helpCommand)
@@ -104,6 +115,7 @@ namespace SoftTestPatience.Tests
             _gameController.RunGame();
 
             //Assert
+            _boardMock.Verify(b => b.ToString(), Times.Exactly(2));
             _boardMock.Verify(b => b.Reset(), Times.Once);
             _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
             _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(2));
@@ -117,6 +129,7 @@ namespace SoftTestPatience.Tests
         public void RunGame_SuccessfulMoveCommand_ShouldMoveCard()
         {
             //Arrange
+            var boardText = _fixture.Create<string>();
             var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
 
             var successfulMoveOriginStack = 5;
@@ -127,6 +140,7 @@ namespace SoftTestPatience.Tests
             var exitCommand = "exit";
             var exitText = "Thank you for playing!\n";
 
+            _boardMock.Setup(b => b.ToString()).Returns(boardText);
             _consoleHelperMock
                 .SetupSequence(c => c.ReadInput())
                 .Returns(successfulMoveCommand)
@@ -138,6 +152,7 @@ namespace SoftTestPatience.Tests
             _gameController.RunGame();
 
             //Assert
+            _boardMock.Verify(b => b.ToString(), Times.Exactly(2));
             _boardMock.Verify(b => b.Reset(), Times.Once);
             _boardMock.Verify(b => b.Move(successfulMoveOriginStack, successfulMoveDestinationStack, 1), Times.Once);
             _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
@@ -152,6 +167,7 @@ namespace SoftTestPatience.Tests
         public void RunGame_FailedMoveCommand_ShouldPrintFail()
         {
             //Arrange
+            var boardText = _fixture.Create<string>();
             var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
 
             var failedMoveOriginStack = 1;
@@ -163,6 +179,7 @@ namespace SoftTestPatience.Tests
             var exitCommand = "exit";
             var exitText = "Thank you for playing!\n";
 
+            _boardMock.Setup(b => b.ToString()).Returns(boardText);
             _consoleHelperMock
                 .SetupSequence(c => c.ReadInput())
                 .Returns(failedMoveCommand)
@@ -174,6 +191,7 @@ namespace SoftTestPatience.Tests
             _gameController.RunGame();
 
             //Assert
+            _boardMock.Verify(b => b.ToString(), Times.Exactly(2));
             _boardMock.Verify(b => b.Reset(), Times.Once);
             _boardMock.Verify(b => b.Move(failedMoveOriginStack, failedMoveDestinationStack, failedMoveNumberOfCards), Times.Once);
             _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
@@ -188,6 +206,7 @@ namespace SoftTestPatience.Tests
         public void RunGame_NewGameCommand_ShouldResetBoard()
         {
             //Arrange
+            var boardText = _fixture.Create<string>();
             var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
 
             var newGameCommand = "new";
@@ -196,6 +215,7 @@ namespace SoftTestPatience.Tests
             var exitCommand = "exit";
             var exitText = "Thank you for playing!\n";
 
+            _boardMock.Setup(b => b.ToString()).Returns(boardText);
             _consoleHelperMock
                 .SetupSequence(c => c.ReadInput())
                 .Returns(newGameCommand)
@@ -205,6 +225,7 @@ namespace SoftTestPatience.Tests
             _gameController.RunGame();
 
             //Assert
+            _boardMock.Verify(b => b.ToString(), Times.Exactly(2));
             _boardMock.Verify(b => b.Reset(), Times.Exactly(2));
             _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
             _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(2));
@@ -218,6 +239,7 @@ namespace SoftTestPatience.Tests
         public void RunGame_UnknownCommand_ShouldPrintUnknown()
         {
             //Arrange
+            var boardText = _fixture.Create<string>();
             var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
 
             var unknownCommand = "unknown";
@@ -226,6 +248,7 @@ namespace SoftTestPatience.Tests
             var exitCommand = "exit";
             var exitText = "Thank you for playing!\n";
 
+            _boardMock.Setup(b => b.ToString()).Returns(boardText);
             _consoleHelperMock
                 .SetupSequence(c => c.ReadInput())
                 .Returns(unknownCommand)
@@ -235,6 +258,7 @@ namespace SoftTestPatience.Tests
             _gameController.RunGame();
 
             //Assert
+            _boardMock.Verify(b => b.ToString(), Times.Exactly(2));
             _boardMock.Verify(b => b.Reset(), Times.Once);
             _consoleHelperMock.Verify(c => c.SetEncoding(), Times.Once);
             _consoleHelperMock.Verify(c => c.ReadInput(), Times.Exactly(2));
@@ -248,6 +272,7 @@ namespace SoftTestPatience.Tests
         public void RunGame_AllCommands_ShouldRunGame()
         {
             //Arrange
+            var boardText = _fixture.Create<string>();
             var welcomeText = "Welcome to Patience!\nType a command (like 'help') to start!\n";
 
             var creditsCommand = "credits";
@@ -282,6 +307,7 @@ namespace SoftTestPatience.Tests
             var exitCommand = "exit";
             var exitText = "Thank you for playing!\n";
 
+            _boardMock.Setup(b => b.ToString()).Returns(boardText);
             _consoleHelperMock
                 .SetupSequence(c => c.ReadInput())
                 .Returns(creditsCommand)
@@ -299,6 +325,7 @@ namespace SoftTestPatience.Tests
             _gameController.RunGame();
 
             //Assert
+            _boardMock.Verify(b => b.ToString(), Times.Exactly(8));
             _boardMock.Verify(b => b.Reset(), Times.Exactly(2));
             _boardMock.Verify(b => b.Move(successfulMoveOriginStack, successfulMoveDestinationStack, 1), Times.Once);
             _boardMock.Verify(b => b.Move(failedMoveOriginStack, failedMoveDestinationStack, failedMoveNumberOfCards), Times.Once);
