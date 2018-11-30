@@ -17,7 +17,7 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void TakeLastCard_EmptyList_ShouldThrowsInvalidOperationException()
+        public void TakeLastCard_EmptyList_ShouldThrowInvalidOperationException()
         {
             // Arrange
             var cards = new List<Card>();
@@ -74,6 +74,36 @@ namespace SoftTestPatience.Tests
 
             // Act & Assert
             Assert.Throws<InvalidOperationException>( () => _cardStackMock.Object.TakeLastCard());
+        }
+
+        [Fact]
+        public void GetLastCard_EmptyList_ShouldThrowInvalidOperationException()
+        {
+            // Arrange
+            var cards = new List<Card>();
+            _cardStackMock.Object.Cards = cards;
+
+            // Act & Assert
+            Assert.Throws<InvalidOperationException>(() => _cardStackMock.Object.GetLastCard());
+        }
+
+        [Fact]
+        public void GetLastCard_CardList_ShouldReturnLastCard()
+        {
+            // Arrange
+            var expectedCard = new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>());
+            var cards = new List<Card>()
+            {
+                new Card(It.IsAny<int>(), It.IsAny<Suits>(), It.IsAny<bool>()),
+                expectedCard
+            };
+            _cardStackMock.Object.Cards = cards;
+
+            // Act
+            var actualCard = _cardStackMock.Object.GetLastCard();
+
+            // Assert
+            Assert.Equal(expectedCard, actualCard);
         }
 
         [Fact]

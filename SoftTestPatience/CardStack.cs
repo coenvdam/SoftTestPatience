@@ -28,6 +28,11 @@ namespace SoftTestPatience
             return lastCard;
         }
 
+        public virtual Card GetLastCard()
+        {
+            throw new NotImplementedException();
+        }
+
         public int GetStackSize()
         {
             return Cards.Count;

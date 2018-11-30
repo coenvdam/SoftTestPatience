@@ -151,14 +151,16 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void Move_CardFitsOnDestinationStack_ShouldReturnTrue()
+        public void Move_CardFitsOnDestinationStackAndOriginStackIsNotEmpty_ShouldReturnTrue()
         {
             //Arrange
             var card = _fixture.Create<Card>();
+            var cardMock = new Mock<Card>(_fixture.Create<int>(), _fixture.Create<Suits>(), _fixture.Create<bool>());
             var originStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
             var destinationStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
 
             originStackMock.Setup(o => o.TakeLastCard()).Returns(card);
+            originStackMock.Setup(o => o.GetLastCard()).Returns(cardMock.Object);
             destinationStackMock.Setup(o => o.AddCard(card)).Returns(true);
 
             //Act
@@ -166,6 +168,30 @@ namespace SoftTestPatience.Tests
 
             //Assert
             originStackMock.Verify(o => o.TakeLastCard(), Times.Once);
+            originStackMock.Verify(o => o.GetLastCard(), Times.Once);
+            cardMock.Verify(o => o.Flip(), Times.Once);
+            destinationStackMock.Verify(d => d.AddCard(card), Times.Once);
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void Move_CardFitsOnDestinationStackAndOriginStackIsEmpty_ShouldReturnTrue()
+        {
+            //Arrange
+            var card = _fixture.Create<Card>();
+            var originStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
+            var destinationStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
+
+            originStackMock.Setup(o => o.TakeLastCard()).Returns(card);
+            originStackMock.Setup(o => o.GetLastCard()).Throws(new InvalidOperationException());
+            destinationStackMock.Setup(o => o.AddCard(card)).Returns(true);
+
+            //Act
+            var result = _board.Move(originStackMock.Object, destinationStackMock.Object);
+
+            //Assert
+            originStackMock.Verify(o => o.TakeLastCard(), Times.Once);
+            originStackMock.Verify(o => o.GetLastCard(), Times.Once);
             destinationStackMock.Verify(d => d.AddCard(card), Times.Once);
             Assert.True(result);
         }
@@ -211,7 +237,37 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
-        public void Move_CardsFitOnDestinationStack_ShouldReturnTrue()
+        public void Move_CardsFitOnDestinationStackAndOriginStackIsNotEmpty_ShouldReturnTrue()
+        {
+            //Arrange
+            var cards = new List<Card>()
+            {
+                _fixture.Create<Card>(),
+                _fixture.Create<Card>(),
+                _fixture.Create<Card>()
+            };
+            var cardMock = new Mock<Card>(_fixture.Create<int>(), _fixture.Create<Suits>(), _fixture.Create<bool>());
+            var numberOfCards = _fixture.Create<int>();
+            var originStackMock = new Mock<TableStack>(_fixture.Create<List<Card>>());
+            var destinationStackMock = new Mock<TableStack>(_fixture.Create<List<Card>>());
+
+            originStackMock.Setup(o => o.TakeLastCards(numberOfCards)).Returns(cards);
+            originStackMock.Setup(o => o.GetLastCard()).Returns(cardMock.Object);
+            destinationStackMock.Setup(o => o.AddCard(It.IsAny<Card>())).Returns(true);
+
+            //Act
+            var result = _board.Move(originStackMock.Object, destinationStackMock.Object, numberOfCards);
+
+            //Assert
+            originStackMock.Verify(o => o.TakeLastCards(numberOfCards), Times.Once);
+            originStackMock.Verify(o => o.GetLastCard(), Times.Once);
+            cardMock.Verify(o => o.Flip(), Times.Once);
+            destinationStackMock.Verify(d => d.AddCard(It.IsAny<Card>()), Times.Exactly(3));
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void Move_CardsFitOnDestinationStackAndOriginStackIsEmpty_ShouldReturnTrue()
         {
             //Arrange
             var cards = new List<Card>()
@@ -222,6 +278,7 @@ namespace SoftTestPatience.Tests
             };
             var numberOfCards = _fixture.Create<int>();
             var originStackMock = new Mock<TableStack>(_fixture.Create<List<Card>>());
+            originStackMock.Setup(o => o.GetLastCard()).Throws(new InvalidOperationException());
             var destinationStackMock = new Mock<TableStack>(_fixture.Create<List<Card>>());
 
             originStackMock.Setup(o => o.TakeLastCards(numberOfCards)).Returns(cards);
@@ -232,6 +289,7 @@ namespace SoftTestPatience.Tests
 
             //Assert
             originStackMock.Verify(o => o.TakeLastCards(numberOfCards), Times.Once);
+            originStackMock.Verify(o => o.GetLastCard(), Times.Once);
             destinationStackMock.Verify(d => d.AddCard(It.IsAny<Card>()), Times.Exactly(3));
             Assert.True(result);
         }
