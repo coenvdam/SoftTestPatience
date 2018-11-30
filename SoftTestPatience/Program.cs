@@ -1,12 +1,11 @@
-﻿using System;
-
-namespace SoftTestPatience
+﻿namespace SoftTestPatience
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var gameController = new GameController(new Board(new CardFactory()), new ConsoleHelper());
+            gameController.RunGame();
         }
     }
 }

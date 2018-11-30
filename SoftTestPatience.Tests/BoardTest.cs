@@ -123,6 +123,7 @@ namespace SoftTestPatience.Tests
             var numberOfCards = 1;
             var card = _fixture.Create<Card>();
             var originStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
+            originStackMock.Setup(o => o.GetLastCard()).Throws(new InvalidOperationException());
             var destinationStackMock = new Mock<CardStack>(_fixture.Create<List<Card>>());
 
             _board.Stacks = new List<CardStack>()

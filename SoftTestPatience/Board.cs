@@ -101,7 +101,18 @@ namespace SoftTestPatience
                 return false;
             }
 
-            if (destinationStack.AddCard(card)) return true;
+            if (destinationStack.AddCard(card))
+            {
+                try
+                {
+                    originStack.GetLastCard().Flip();
+                }
+                catch (InvalidOperationException)
+                {
+                }
+
+                return true;
+            }
 
             originStack.ReturnCard(card);
             return false;
@@ -123,13 +134,21 @@ namespace SoftTestPatience
             {
                 if (!destinationStack.AddCard(cards[i]))
                 {
-                    destinationStack.TakeLastCards(cards.Count - (i+1));
+                    destinationStack.TakeLastCards(cards.Count - (i + 1));
                     for (int j = cards.Count - 1; j >= 0; j--)
                     {
                         originStack.ReturnCard(cards[j]);
                     }
                     return false;
                 }
+            }
+
+            try
+            {
+                originStack.GetLastCard().Flip();
+            }
+            catch (InvalidOperationException)
+            {
             }
 
             return true;

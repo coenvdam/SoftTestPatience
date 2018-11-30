@@ -17,7 +17,7 @@ namespace SoftTestPatience
             this.Hidden = hidden;
         }
 
-        public void Flip()
+        public virtual void Flip()
         {
             this.Hidden = !this.Hidden;
         }
