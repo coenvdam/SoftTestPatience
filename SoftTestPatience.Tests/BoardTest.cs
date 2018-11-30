@@ -117,6 +117,79 @@ namespace SoftTestPatience.Tests
         }
 
         [Fact]
+        public void Move_CardsFitOnDestinationStack_ShouldReturnTrue()
+        {
+            //Arrange
+            var cards = new List<Card>()
+            {
+                _fixture.Create<Card>(),
+                _fixture.Create<Card>(),
+                _fixture.Create<Card>()
+            };
+            var numberOfCards = _fixture.Create<int>();
+            var originStackMock = new Mock<TableStack>(_fixture.Create<List<Card>>());
+            var destinationStackMock = new Mock<TableStack>(_fixture.Create<List<Card>>());
+
+            originStackMock.Setup(o => o.TakeLastCards(numberOfCards)).Returns(cards);
+            destinationStackMock.Setup(o => o.AddCard(It.IsAny<Card>())).Returns(true);
+
+            //Act
+            var result = _board.Move(originStackMock.Object, destinationStackMock.Object, numberOfCards);
+
+            //Assert
+            originStackMock.Verify(o => o.TakeLastCards(numberOfCards), Times.Once);
+            destinationStackMock.Verify(o => o.AddCard(It.IsAny<Card>()), Times.Exactly(3));
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void Move_TakeLastCardsThrowsException_ShouldReturnFalse()
+        {
+            //Arrange
+            var numberOfCards = _fixture.Create<int>();
+            var originStackMock = new Mock<TableStack>(_fixture.Create<List<Card>>());
+            var destinationStackMock = new Mock<TableStack>(_fixture.Create<List<Card>>());
+
+            originStackMock.Setup(o => o.TakeLastCards(numberOfCards)).Throws(new InvalidOperationException());
+
+            //Act
+            var result = _board.Move(originStackMock.Object, destinationStackMock.Object, numberOfCards);
+
+            //Assert
+            originStackMock.Verify(o => o.TakeLastCards(numberOfCards), Times.Once);
+            destinationStackMock.Verify(o => o.AddCard(It.IsAny<Card>()), Times.Never);
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void Move_CardsDoNotFitOnDestinationStack_ShouldReturnFalse()
+        {
+            //Arrange
+            var numberOfCards = _fixture.Create<int>();
+            var cards = new List<Card>()
+            {
+                _fixture.Create<Card>(),
+                _fixture.Create<Card>(),
+                _fixture.Create<Card>()
+            };
+            var originStackMock = new Mock<TableStack>(_fixture.Create<List<Card>>());
+            var destinationStackMock = new Mock<TableStack>(_fixture.Create<List<Card>>());
+
+            originStackMock.Setup(o => o.TakeLastCards(numberOfCards)).Returns(cards);
+            originStackMock.Setup(o => o.ReturnCard(It.IsAny<Card>()));
+            destinationStackMock.SetupSequence(o => o.AddCard(It.IsAny<Card>())).Returns(true).Returns(false);
+
+            //Act
+            var result = _board.Move(originStackMock.Object, destinationStackMock.Object, numberOfCards);
+
+            //Assert
+            originStackMock.Verify(o => o.TakeLastCards(numberOfCards), Times.Once);
+            destinationStackMock.Verify(o => o.AddCard(It.IsAny<Card>()), Times.Exactly(2));
+            originStackMock.Verify(o => o.ReturnCard(It.IsAny<Card>()), Times.Exactly(3));
+            Assert.False(result);
+        }
+
+        [Fact]
         public void ToString_Board_ShouldReturnStringOfBoard()
         {
             //Arrange

@@ -25,7 +25,7 @@ namespace SoftTestPatience
             return true;
         }
 
-        public List<Card> TakeLastCards(int numberOfCards)
+        public virtual List<Card> TakeLastCards(int numberOfCards)
         {
             if (numberOfCards > this.Cards.Count
                 || this.Cards[this.Cards.Count - numberOfCards].Hidden)
