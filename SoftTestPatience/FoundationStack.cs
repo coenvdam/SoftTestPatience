@@ -49,7 +49,7 @@ namespace SoftTestPatience
                 }
             }
 
-            return $"[{this.Cards[this.Cards.Count - 1]}]";
+            return this.Cards[this.Cards.Count - 1].ToString();
         }
     }
 }
